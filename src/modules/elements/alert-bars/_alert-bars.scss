@@ -1,0 +1,108 @@
+/// Alert Bars
+///
+/// @author [@esr360](http://twitter.com/esr360)
+/// @access public
+/// @group elements
+///
+/// @param {map} $custom - where custom config will be passed
+/// @outputs all alert bar styles
+///
+/// @example
+///     @include alert-bars((
+///         'title-bg'    : blue,
+///         'title-color' : white
+///     ));
+@mixin alert-bars($custom: ()) {
+
+    //*************************************************************
+    // Configuration
+    //*************************************************************
+
+    $alert-bars: config((
+        'name'        : 'alert',
+        'colors'      : palette('alert'),
+        'text-color'  : color('greyscale', 'white'),
+        'bar-padding' : 0.85em,
+        'box-padding' : 1.5em,
+    ), $custom);
+
+    //*************************************************************
+    // Module
+    //*************************************************************
+
+    @include module {
+
+        //*********************************************************
+        // Core Styles
+        //*********************************************************
+        
+        // Private styles
+        position: relative;
+        display: block;
+
+        // Public styles
+        color: this('text-color');
+
+        // Pseudo States
+        //*********************************************************
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        // Child Elements
+        //*********************************************************
+
+        a:not([class*="button"]) {
+            border-bottom: 1px dotted;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        
+        a, b {
+            color: inherit;
+        }
+
+        //*********************************************************
+        // Modifiers
+        //*********************************************************
+
+        @include modifier('bar') {
+            padding: this('bar-padding');
+        }
+
+        @include modifier('box') {
+            @include object;
+            padding: this('box-padding');
+        }
+
+        @each $name, $color in this('colors') {
+            @include modifier($name) {
+                background-color: $color;
+            }
+        }
+
+        //*********************************************************
+        // Components
+        //*********************************************************
+
+        @include component('icon') {
+            margin-right: 0.5em;
+            line-height: 1.25;
+            @include modifier('right') {
+                float: right;
+                margin-left: 0.5em;
+                margin-right: 0;
+            }
+        }
+
+        //*********************************************************
+        // Custom Content
+        //*********************************************************
+
+        @content;
+
+    } // module
+
+} // @mixin alert-bars

@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+.settings
+.sass-cache
+settings.json
+debug.log
+todo.md
+node_modules
+dist
+docs

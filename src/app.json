@@ -1,1 +1,6 @@
-{}
+{
+    "asset-path": "'../..'",
+    "sass-config-parser": "eval-config",
+    "component-glue": "'_'",
+    "modifier-glue": "'-'"
+}

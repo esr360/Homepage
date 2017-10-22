@@ -1,0 +1,81 @@
+/// Buttons
+///
+/// @author [@esr360](http://twitter.com/esr360)
+/// @access public
+/// @group elements
+///
+/// @param {map} $custom - where custom config will be passed
+/// @outputs all button styles
+///
+/// @example
+///     @include buttons((
+///         'round-radius' : 4px,
+///         'weight'       : bold
+///     ));
+@mixin tables($custom: ()) {
+
+    //*************************************************************
+    // Configuration
+    //*************************************************************
+
+    $tables: config((
+        'name'            : 'table',
+        'cell-padding'    : 0.6em,
+        'small-font-size' : 0.85em
+    ), $custom);
+
+    //*************************************************************
+    // Module
+    //*************************************************************
+
+    @include module {
+
+        //*********************************************************
+        // Core Styles
+        //*********************************************************
+
+        width: 100%;
+        
+        th, td {
+            padding: this('cell-padding');
+            text-align: left;
+            border-bottom: 1px solid rgba(black, 0.1);
+            border-left: 1px solid rgba(black, 0.1);
+            vertical-align: top;
+            &:first-child {
+                border-left: none;
+                padding-left: 0;
+            }
+        }
+
+        tbody {
+            tr {
+                &:last-child {
+                    td {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+        
+        code {
+            white-space: nowrap;
+        }
+
+        //*********************************************************
+        // Modifiers
+        //*********************************************************
+
+        @include modifier('fixed') {		
+            table-layout: fixed;
+        }
+
+        //*********************************************************
+        // Custom Content
+        //*********************************************************
+
+        @content;
+
+    } // module
+
+} // @mixin tables

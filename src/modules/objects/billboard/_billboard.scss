@@ -1,0 +1,123 @@
+/// Billboard
+///
+/// @author [@esr360](http://twitter.com/esr360)
+/// @access public
+/// @group objects
+///
+/// @param {map} $custom - where custom config will be passed
+/// @outputs all billboard styles
+///
+/// @example
+///     @include billboard((
+///         'min-height'     : 350px,
+///         'bg-image'       : 'images/billboard.jpg'
+///         'fullscreen':(
+///             'enabled'    : true,
+///             'min-height' : 500px
+///         )
+///     ));
+@mixin billboard($custom: ()) {
+
+    //*************************************************************
+    // Configuration
+    //*************************************************************
+
+    $billboard: config((
+        'name'                : 'billboard',
+        'output-json'         : true,
+        'min-height'          : 400px,
+        'padding'             : 6em 0,
+        'color'               : color('greyscale', 'white'),
+        'active-color'        : color('brand', 'brand-2'),
+        'background':(
+            'color'           : color('brand', 'brand-1'),
+            'image'           : null
+        ),
+        'fullscreen':(
+            'enabled'         : false, // {bool} | 'displace'
+            'min-height'      : 700px,
+            'height-displace' : option($header, 'height')
+        ),
+        'overlay':(
+            'enabled'         : false,
+            'color'           : color('brand', 'brand-1'),
+            'opacity'         : 0.6
+        )
+    ), $custom) !global;
+
+    //*************************************************************
+    // Module
+    //*************************************************************
+
+    @include module {
+
+        //*********************************************************
+        // Core Styles
+        //*********************************************************
+
+        @include background();
+
+        position: relative;
+        min-height: this('min-height');
+        padding: this('padding');
+        background-size: cover;
+        overflow: hidden;
+
+        //*********************************************************
+        // Options
+        //*********************************************************
+        
+        @include option('fullscreen') {
+
+            height: 100%;
+            height: 100vh;
+            min-height: this('fullscreen', 'min-height');
+
+            @include value('displace') {
+                height: calc(100% - #{
+                    this('fullscreen', 'height-displace')
+                });
+                height: calc(100vh - #{
+                    this('fullscreen', 'height-displace')
+                });
+            }
+
+        }
+        
+        @include option('overlay') {
+            @include bg-overlay(rgba(
+                this('overlay', 'color'), 
+                this('overlay', 'opacity')
+            ));
+        }
+
+        //*********************************************************
+        // Components
+        //*********************************************************
+
+        @include component('wrapper') {
+            @extend %horizontal-center;
+            @include vertical-center(absolute);
+            @include _module('container');
+            color: this('color');
+            @include modifier('wide') {
+                @include _module('container', 'large');
+            }
+            a {
+                color: this('color');
+                border-bottom: 1px dotted;
+                &:hover {
+                    color: this('active-color');
+                }
+            }
+        }
+
+        //*********************************************************
+        // Custom Content
+        //*********************************************************
+
+        @content;
+
+    } // module
+
+} // @mixin billboard
