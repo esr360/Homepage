@@ -49,10 +49,13 @@ import { core        } from './modules/utilities/core/core';
 import { grid        } from './modules/utilities/grid/grid';
 import { typography  } from './modules/utilities/typography/typography';
 
+// Index
+import { index      } from './modules/index/index';
+
 export { 
     accordion, carousel, modal, progressBar, tabs, tooltips, 
     googleMap, header, overlay, preloader, scrollTop, search, sideNav,
-    colors, core, grid, typography
+    colors, core, grid, typography, index
 };
 
 // Tools
