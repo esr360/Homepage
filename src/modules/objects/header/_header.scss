@@ -1,47 +1,14 @@
+@import '../../modules/objects/header/header.json';
 /// Header
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group objects
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all header styles
-///
-/// @example
-///     @include header((
-///         'round-radius' : 4px,
-///         'weight'       : bold
-///     ));
-@mixin header($custom: ()) {
+@mixin header($custom: custom('header')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
-
-    $header: config((
-        'name'             : 'appHeader',
-        'output-json'      : true,
-        'background'       : core('background'),
-        'height'           : 85px,
-        'font-size'        : 1em,
-        'z-index'          : 5,
-        'bar'              : true,
-        'absolute':(
-            'enabled'      : false,
-            'top-position' : 0
-        ),
-        'dark':(
-            'enabled'      : false,
-            'background'   : color('greyscale', 'grey-6')
-        ),
-        'sticky':(
-            'enabled'      : false,
-            'background'   : color('greyscale', 'grey-6'),
-            'height'       : 70px,
-            'logo-height'  : 28px,
-            'font-size'    : font-size('size-2')
-        )
-    ), $custom) !global;
+    $header: config($header, $custom);
 
     //*************************************************************
     // Module
@@ -54,66 +21,67 @@
         //*********************************************************
 
         overflow: visible;
-        font-size: this('font-size');
-        background: this('background');
 
         //*********************************************************
         // Settings
         //*********************************************************
 
         // Header Bar
-        //*********************************************************
-        
         @include option('bar') {
             @include module {
-                @include component('wrapper') {	
+                @include component('wrapper') {
                     display: table;
                 }
             }
+
             @include modules(('logo', 'navigation')) {
                 display: table-cell;
                 vertical-align: middle;
             }
         }
-        
+
         // Absolute Position Header
-        //*********************************************************
-        
         @include option('absolute') {
+            @include get-styles(this('absolute'));
             position: absolute;
             width: 100%;
-            margin-top: this('absolute', 'top-position');
-            z-index: this('z-index');
         }
-        
-        // Dark Header
-        //*********************************************************
 
+        // Dark Header
         @include option('dark') {
-            background-color: this('dark', 'background');
+            @include get-styles(this('dark'));
         }
-        
+
+        // Fixed Header
+        @include option('fixed') {
+            position: fixed;
+            z-index: 12;
+            top: 0;
+            width: 100%;
+            margin-top: 0;
+        }
+
         // Sticky Header
-        //*********************************************************
-        
         @include option('sticky') {
-            @include module {
-                @include modifier('fixed') {
-                    position: fixed;
-                    top: 0;
-                    margin-top: 0;
-                    width: 100%;
-                    z-index: 12;
-                    background: this('sticky', 'background');
-                    font-size: this('sticky', 'font-size');
+            @include get-styles(this('sticky'));
+
+            @include modifier('fixed') {
+                @include module {
                     @include component('wrapper') {
-                        height: this('sticky', 'height');
+                        @include get-styles(this('sticky', 'wrapper'));
                     }
-                    @include module('logo') {
-                        img {
-                            height: this('sticky', 'logo-height');
-                        }
+                }
+
+                @include module('logo') {
+                    img {
+                        height: this('sticky', 'logo-height');
                     }
+                }
+            }
+
+            @include module('logo') {
+                img {
+                    transition: height core('transition');
                 }
             }
         }
@@ -124,10 +92,19 @@
 
         @include component('wrapper') {
             @include _module('container');
-            height: this('height');
-            @include modifier('wide') {
-                @include _module('container', 'large');
+            transition: height core('transition');
+        }
+
+        @include module('sideNav') {
+            @include component('toggle') {
+                @include vertical-center();
+                right: 0;
             }
+        }
+
+        // For JS - will be applied to body element
+        @include component('isFixed') {
+            padding-top: this('sticky', 'wrapper', 'height');
         }
 
         //*********************************************************
@@ -135,7 +112,7 @@
         //*********************************************************
 
         @content;
-        
+
     } // module
 
 } // @mixin header

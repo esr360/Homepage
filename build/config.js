@@ -8,18 +8,18 @@
 module.exports = function config() {
 
     // Set the default theme to compile assets for
-    this.theme = 'one-nexus';
+    this.theme = 'i8';
 
     // List of all themes used by the project
     this.themes = [
-        'one-nexus'
+        'i8'
     ];
         
     // Set the desired development environment ('dev'|'prod')
     this.env = 'dev';
 
     // Lint files when compiling them
-    this.lint = true;
+    this.lint = false;
 
     // Test files when compiling them
     this.test = true;

@@ -1,53 +1,18 @@
-/// Buttons
+@import '../../modules/elements/tooltips/tooltips.json';
+/// Tooltips
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group elements
 /// @see https://github.com/esr360/K-Tooltips
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all button styles
-///
-/// @example
-///     @include buttons((
-///         'round-radius' : 4px,
-///         'weight'       : bold
-///     ));
-@mixin tooltips($custom: ()) {
+@mixin tooltips($custom: custom('tooltips')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
+    $tooltips: config($tooltips, $custom);
 
-    $tooltips: config((
-        'name'           : 'tooltip',
-        'output-json'    : true,
-        // Size & Appearance
-        'max-width'      : 500px,
-        'padding'        : 0.5em 0.75em,
-        'distance'       : -1em,
-        'background'     : rgba(black, 0.75),
-        'border-radius'  : 0,
-        'arrow-size'     : 0.5em,
-        'arrow-color'    : rgba(black, 0.75),
-        // Typography
-        'font-size'      : font-size('size-2', $rem: true),
-        'font-family'    : typography('typefaces', 'primary'),
-        'color'          : white,
-        'text-transform' : none,
-        'font-weight'    : normal,
-        // Other
-        'transition'     : core('transition'),
-        'z-index'        : 9999
-    ), $custom) !global;
-
-    //*************************************************************
     // Positions
-    //*************************************************************
-
-    $tooltip-positions: (
-        'top', 'bottom', 'left', 'right'
-    );
+    $tooltip-positions: ('top', 'bottom', 'left', 'right');
 
     //*************************************************************
     // Module
@@ -59,14 +24,8 @@
         // Core Styles
         //*********************************************************
 
-        cursor: pointer;	
         position: relative;
-
-        //*********************************************************
-        // Modifiers
-        //*********************************************************
-
-        @include modifier('light') {}
+        cursor: pointer;
 
         //*********************************************************
         // Components
@@ -75,60 +34,40 @@
         @at-root .inline-tooltip {
             display: inline-block;
         }
-        
+
         @include component('wrapper') {
             text-align: center;
         }
 
         @include component('content') {
-                
-            // Size & Appearance
-            max-width: this('max-width');
-            padding: this('padding');
-            background: this('background');
-            border-radius: this('border-radius');
-            line-height: 1.75;
-            position: absolute;
             display: inline-block;
-            
-            // Typography
-            font-size: this('font-size');
-            font-family: this('font-family');
-            color: this('color');
-            text-transform: this('text-transform');
-            font-weight: this('font-weight');
-            
-            // Other
-            transition: this('transition');
-            z-index: this('z-index');
-            white-space: nowrap;
-            
-            // Hide by default
-            opacity: 0;
             visibility: hidden;
-            
+            position: absolute;
+            opacity: 0;
+            white-space: nowrap;
+
             // Show when parent component is hovered/touched
             [data-tooltip]:hover &,
             [data-tooltip]:active & {
-                opacity: 1;
                 visibility: visible;
+                opacity: 1;
             }
-            
+
             // Direction Arrow
             @include triangle-core;
-            
+
             // Inline-Tooltip styles
             .inline-tooltip & {
                 white-space: nowrap;
             }
-                
+
             // Positions
             @each $tooltip-position in $tooltip-positions {
                 [class*="tooltip_wrapper"][class*="-#{$tooltip-position}"] & {
                     #{$tooltip-position}: this('distance');
                     @include triangle((
-                        'core'     : false, 
-                        'position' : #{$tooltip-position}, 
+                        'core'     : false,
+                        'position' : #{$tooltip-position},
                         'color'    : this('arrow-color'),
                         'size'     : this('arrow-size')
                     ));
@@ -143,10 +82,9 @@
                         top: 50%;
                         transform: translateX(100%) translateY(-50%);
                     }
-                }	
+                }
             }
-            
-        } // component('content')
+        }
 
         //*********************************************************
         // Custom Content

@@ -1,93 +1,68 @@
-(function ($) {
+import * as app from '../../../app';
+import defaults from './carousels.json';
+/**
+ * Carousel
+ * 
+ * @access public
+ * 
+ * @param {(String|Object)} els
+ * @param {Object} custom
+ */
+export function carousel(els = 'carousel', custom = {}) {
 
-    /**
-     * Carousel
-     * 
-     * @access public
-     * @author [@esr360](http://twitter.com/esr360)
-     * @requires owlCarousel
-     * @param {object} custom - where custom config will be passed
-     * 
-     * @example
-     *     $('.carousel').carousel({
-     *         pagination: false,
-     *         owl: {
-     *             items: 1 
-     *         }
-     *     });
-     */
-    $.fn.carousel = function(custom) {
+    custom = app.custom('carousels', custom);
 
-        // Options
-        var options = $.extend({
-            nav: true,
-            pagination: true,
-            owl: {},
-            options:{
-                nav : _modules['carousel']['nav-buttons']['enabled'],
-                dots: _modules['carousel']['bullets']['enabled'],
-                callbacks: true,
-                navText:[
-                    '<div class="carousel_nav_item-prev"></div>',
-                    '<div class="carousel_nav_item-next"></div>',
-                ]
-            }
-        }, custom);
+    // Map Flickity elements to One-Nexus components
+    const components = {
+        'wrapper'            : '.flickity-viewport',
+        'pagination'         : '.flickity-page-dots',
+        'bullet'             : '.dot',
+        'navigation'         : '',
+        'navigationItem'     : '.flickity-prev-next-button',
+        'navigationItem-prev': '.flickity-prev-next-button.previous',
+        'navigationItem-next': '.flickity-prev-next-button.next'
+    };
 
-        var navTemplate = '<div class="carousel_nav"></div>';
-        var paginationTemplate = '<div class="carousel_bullets"></div>';
+    app.Synergy(els, function(el, options) {
+        // Get options from data-attr (if applicable)
+        if (el.hasAttribute('data-carousel')) {
+            const dataOptions = JSON.parse(el.getAttribute('data-carousel'));
+            options.Flickity = Object.assign(options.Flickity, dataOptions);
+        }
 
-        // Run the code on each occurance of the target
-        return this.each(function(index) {
-            // Cache selectors
-            var $carousel = $(this);
-            var slides = $carousel.children();
+        // Create new Flickity instance
+        const carousel = new app.Flickity(el, options.Flickity);
 
-            var owlOptions = {};
-
-            // If the element doesn't have an id, add one
-            if (!this.id) {
-                this.id = 'carousel_' + Math.random().toString(36).substr(2, 8)
-            }
-
-            // Cache the element's id
-            var id = this.id;
-
-            // Merge some new config given the elements id
-            $.extend(true, options, {
-                options:{
-                    navContainer : '#' + id + ' .carousel_nav',
-                    dotsContainer: '#' + id + ' .carousel_bullets'
-                }
-            });
-
-            // Merge any custom owl options
-            owlOptions = $.extend(true, options.options, 
-                options.owl, $carousel.data('owl-options')
-            );
-
-            // Prepare the slides
-            slides.addClass('carousel_slide');
-            slides.wrapAll('<div class="carousel_slides"></div>');
-
-            // Append the carousel nav
-            if (options.nav) {
-                $carousel.append(navTemplate);
-            }
-
-            // Append the carousel pagination
-            if (options.pagination) {
-                $carousel.append(paginationTemplate);
-            }
-
-            // Cache the slides wrapper
-            var slidesWrapper = $carousel.find('.carousel_slides');
-
-            // Initiate the carousel using Owl-Carousel
-            slidesWrapper.addClass('owl-carousel');
-            slidesWrapper.owlCarousel(owlOptions);
+        carousel.on('select', () => {
+            // add One-Nexus class to bullet
+            el.querySelector('.dot.is-selected').classList.add(options.name + '_' + 'bullet');
         });
 
-    }; // carousel()
+        // Add appropriate classes to carousel elements for styles
+        for (let [key, value] of Object.entries(components)) {
+            if (value) {
+                const identifier = options.name + '_' + key;
+                const components = el.querySelectorAll(value);
 
-}(jQuery));
+                elInit(components, identifier);
+            }
+        }
+
+        // Compensate for pagination
+        if (!options.navigationItem.disable) {
+            const offset = el.component('pagination')[0].clientHeight + parseInt(options.bullet.gutter, 10);
+            el.style.marginBottom = `${offset}px`;
+        }
+
+        exports.Flickity = carousel;
+
+        function elInit(els, identifier) {
+            els.forEach(el => el.classList.add(identifier));
+        }
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config.carousels = app.parse(defaults.carousels, custom);
+
+    return exports;
+}

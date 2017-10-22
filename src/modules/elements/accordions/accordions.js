@@ -1,51 +1,102 @@
-(function ($) {
+import * as app from '../../../app';
+import defaults from './accordions.json';
 
-    /**
-     * Accordions
-     * 
-     * @access public
-     * @author [@esr360](http://twitter.com/esr360)
-     * @param {object} custom - where custom config will be passed
-     * 
-     * @example
-     *     $('.accordion').accordion({
-     *         activeClass: 'toggled',
-     *         animationSpeed: 0.5s
-     *     });
-     */
-    $.fn.accordion = function(custom) {
-        
-        // Options
-        var options = $.extend({
-            activeClass      : 'active',
-            animationSpeed   : _baseTransition,
-            keepOpenSelector : _modifier('keepOpen')
-        }, custom);
+/**
+ * Accordion
+ * 
+ * @access public
+ * 
+ * @param {(String|HTMLElement|NodeList)} els
+ * @param {Object} custom
+ */
+export function accordion(els = 'accordion', custom = {}) {
 
-        // Run the code on each occurance of the target
-        return this.each(function() {
-            
-            // Add active class to the target content section
-            $(this).find('> *.' + options.activeClass + ' > *:first-child + *').addClass(options.activeClass);
+    custom = app.custom('accordions', custom);
 
-            // When an accordion title is clicked
-            $(this).find('> * > *:first-child').click(function () {
+    app.Synergy(els, (el, options) => {
 
-                var $parent = $(this).parent();
-
-                if ($(this).parents().eq(1).is(':not(' + options.keepOpenSelector + ')')) {
-                    $parent.siblings().removeClass(options.activeClass);
-                    $parent.siblings().find('> *:first-child + *').slideUp(options.animationSpeed);
+        if (!el.getAttribute('data-initialised')) {
+            el.component('section').forEach((section, index) => {
+                if (section.modifier('active')) {
+                    section.component('content')[0].modifier('active', 'set');
                 }
-                
-                $parent.toggleClass(options.activeClass);
 
-                $(this).find('~ *').slideToggle(options.animationSpeed);
-
+                section.component('title')[0].addEventListener('click', () => {
+                    clickHandler(el, section, options);
+                }, false);
             });
-            
-        });
+            el.setAttribute('data-initialised', true);
+        }
 
-    }; // accordion()
+        exports.open  = target => exports.toggle('open', target);
+        exports.close = target => exports.toggle('close', target);
 
-}(jQuery));
+        exports.toggle = (type, target) => toggleAccordion(type, el, target, options);
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config.accordions = app.parse(defaults.accordions, custom);
+
+    return exports;
+}
+
+/**
+ * clickHandler
+ * 
+ * @access private
+ * 
+ * @param {Object} accordion
+ * @param {Object} section
+ * @param {Object} options
+ */
+function clickHandler(accordion, section, options) {
+    var active = section.modifier('active', 'isset');
+
+    if (!accordion.modifier(options.keepOpenModifier)) {
+        accordion.component('section').forEach(el => toggleAccordion('close', accordion, el, options));
+    }
+
+    if (active) {
+        toggleAccordion('close', accordion, section, options);
+    } else {
+        toggleAccordion('open', accordion, section, options);
+    }
+}
+
+/**
+ * toggleAccordion
+ * 
+ * @access private
+ * 
+ * @param {('open'|'close')} type
+ * @param {HTMLElement} parent
+ * @param {(String|Number|HTMLElement|NodeList)} target
+ * @param {Object} options
+ */
+function toggleAccordion(type, parent, target, options) {
+    let section;
+
+    const operator = (type === 'open') ? 'set' : 'unset';
+
+    if (typeof target === 'string') {
+        section = parent.querySelectorAll(target);
+    } else if (typeof target === 'number') {
+        section = parent.children[target - 1];
+    } else if (target instanceof HTMLElement || target instanceof NodeList) {
+        section = target;
+    } else if (!target) {
+        section = parent.component('section');
+    }
+
+    if (section instanceof NodeList) {
+        section.forEach(el => toggleActiveClass(el));
+    } else {
+        toggleActiveClass(section);
+    }
+
+    function toggleActiveClass(el) {
+        el.modifier('active', operator);
+        el.component('title')[0].modifier('active', operator);
+        el.component('content')[0].modifier('active', operator);
+    }
+}

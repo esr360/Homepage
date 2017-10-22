@@ -6,7 +6,7 @@
 ///****************************************************************
 
 import * as app from '../../app';
-import config from './config.json';
+import config from './i8.json';
 
 app.theme  = config.app;
 

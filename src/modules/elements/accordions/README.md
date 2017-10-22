@@ -1,4 +1,16 @@
-## One-Nexus Accordions
+## Accordions
+
+##### Components
+
+* section
+* title
+* content
+
+##### Modifiers
+
+* keepOpen
+
+### Quick Look
 
 ```html
 <div class="accordion">
@@ -17,15 +29,9 @@
 </div>
 ```
 
-### Sass
+### Options
 
-Load the accordion styles by including the `accordions()` mixin:
-
-```scss
-@include accordions();
-```
-
-The following options can be passed to the mixin to customize the accordions:
+For default values view the [`accordions.json`](accordions.json) file. Standard CSS properties for modules, components and modifiers are not documented below - [learn more](https://github.com/esr360/Synergy/wiki/Configuring-a-Module#pass-custom-css-to-modules).
 
 <table class="table">
     <thead>
@@ -40,145 +46,94 @@ The following options can be passed to the mixin to customize the accordions:
             <td>The name used when generating the CSS selector</td>
         </tr>
         <tr>
-            <td>icon</td>
+            <td>icon.glyph</td>
             <td>The <a href="http://astronautweb.co/snippet/font-awesome/" target="blank">content value</a> for a Font Awesome icon</td>
         </tr>
         <tr>
-            <td>icon-color</td>
+            <td>icon.color</td>
             <td>The color for the open/close icon</td>
         </tr>
         <tr>
-            <td>icon-active-color</td>
-            <td>The color for the open/close icon when the corresponding section is open</td>
-        </tr>
-        <tr>
-            <td>section-margin</td>
+            <td>section.margin</td>
             <td>The vertical spacing between each accordion section</td>
         </tr>
         <tr>
-            <td>title-bg</td>
-            <td>The background color for the accordion title (the clickable part)</td>
+            <td>animationSpeed</td>
+            <td>The duration of the open/close animation in milliseconds</td>
         </tr>
         <tr>
-            <td>title-color</td>
-            <td>The text color for the accordion title (the clickable part</td>
-        </tr>
-        <tr>
-            <td>title-border</td>
-            <td>The border for the accordion title (the clickable part)</td>
-        </tr>
-        <tr>
-            <td>title-radius</td>
-            <td>The border-radius for the accordion title (the clickable part)</td>
-        </tr>
-        <tr>
-            <td>title-padding</td>
-            <td>The padding for the accordion title (the clickable part</td>
-        </tr>
-        <tr>
-            <td>title-active-bg</td>
-            <td>The background color for the accordion title when the corresponding section is open</td>
-        </tr>
-        <tr>
-            <td>title-active-color</td>
-            <td>The text color for the accordion title when the corresponding section is open</td>
-        </tr>
-        <tr>
-            <td>title-active-border</td>
-            <td>The border for the accordion title when the corresponding section is open</td>
-        </tr>
-        <tr>
-            <td>title-active-radius</td>
-            <td>The border-radius for the accordion title when the corresponding section is open</td>
-        </tr>
-        <tr>
-            <td>content-bg</td>
-            <td>The backgound for the accordion content</td>
-        </tr>
-        <tr>
-            <td>content-color</td>
-            <td>The text color for the accordion content</td>
-        </tr>
-        <tr>
-            <td>content-border</td>
-            <td>The border for the accordion content</td>
-        </tr>
-        <tr>
-            <td>content-radius</td>
-            <td>The border-radius for the accordion content</td>
-        </tr>
-        <tr>
-            <td>content-padding</td>
-            <td>The padding for the accordion content</td>
+            <td>keepOpenModifier</td>
+            <td>The name of the modifier for accordions which allow multiple open sections</td>
         </tr>
     </tbody>
 </table>
 
-The above options can be passed to the mixin like so:
+Pass custom options to the `accordions` object in your theme's config file (e.g. [themes/One-Nexus/config.json](../../../themes/One-Nexus/config.json)):
+
+```json
+{
+    "app": {
+        "accordions": {
+            "icon": {
+                "color": "#0066ff"
+            },
+            "animationSpeed": 800
+        }
+    }
+}
+```
+
+### Sass
+
+Load the accordion styles in your theme's main `scss` file (e.g. [themes/One-Nexus/One-Nexus.scss](../../../themes/One-Nexus/One-Nexus.scss)) by including the `accordions()` mixin:
 
 ```scss
-@include accordions((
-    'section-margin': 1.4em,
-    'icon': '\f101',
-    'title-bg': #23241f,
-    'title-color': white,
-    'title-radius': 0.4em,
-    'title-active-bg': #9B58B5,
-    'title-active-radius': 0.4em 0.4em 0 0,
-    'content-padding': 1em,
-    'content-radius': 0 0 0.4em 0.4em
-));
+@import '../../app';
+@import './config.json';
+
+@include accordions();
 ```
 
 ### JavaScript
 
-Call the `accordion()` function on your accordion selector:
+Call the `accordion()` function in your theme's main `js` file (e.g. [themes/One-Nexus/One-Nexus.js](../../../themes/One-Nexus/One-Nexus.js)):
 
 ```js
-$('.foo').accordion();
-$(_accordion).accordion();
+import * as app from '../../app';
+import config from './config.json';
+app.theme = config.app;
+
+app.accordion();
 ```
 
-> The default One-Nexus theme uses [Synergy's](https://github.com/esr360/Synergy) global module selector: '$(_accordion)'
+#### API
 
-The following options can be passed to the function to customize the accordions:
+##### Open/Close
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Option</th>
-            <th>Description</th>
-            <th>Default</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>activeClass</td>
-            <td>The class to use to open an accordion section</td>
-        </tr>
-        <tr>
-            <td>animationSpeed</td>
-            <td>The duration of the open/close animation</td>
-        </tr>
-        <tr>
-            <td>keepOpenSelector</td>
-            <td>The selector to use on the main module to allow multiple sections to be open simultaneously</td>
-        </tr>
-    </tbody>
-</table>
-
-The above options can be passed to the function like so:
+You can open or close specific sections of an accordion by using either the `.open()` or `.close()` methods.
 
 ```js
-$(_accordion).accordion({
-    activeClass: 'toggled',
-    animationSpeed: 500
-});
+// Opens all sections of accordion with ID 'foo'
+app.accordion(document.getElementById('foo')).open();
+
+// Opens first section of accordion with ID 'foo'
+app.accordion(document.getElementById('foo')).open(1);
+
+// Opens first section of all accordions
+app.accordion().open(1);
+
+// Opens all sections with class 'foo' for all accordions
+app.accordion().open(document.querySelectorAll('.foo'));
+
+// Opens all sections with class 'foo' for all accordions
+app.accordion().open('.foo');
 ```
 
 ### Examples
 
 #### Open by Default
+
+Add the `active` class to any sections you wish to be open by default.
 
 ```html
 <div class="accordion">
@@ -192,6 +147,8 @@ $(_accordion).accordion({
 ```
 
 #### Multiple Open Sections
+
+To allow accordions to have multiple open sections simultaneously, add the `keepOpen` modifier to the target accordion:
 
 ```html
 <div class="accordion-keepOpen">

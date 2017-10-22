@@ -1,71 +1,82 @@
-(function ($) {
-    
-    /**
-     * KAYZEN
-     * @module: 'appHeader'
-     * @requires: 'navigation', 'side-nav', 'site-overlay'
-     * @author: @esr360
-     */
-    $.fn.header = function(custom) {
-    
-        var $module = 'appHeader';
-        
-        // Options
-        var options = $.extend({
-            navigation   : _navigation,
-            overlay      : '#site-overlay',
-            sticky       : _option($module, 'sticky'),
-            fixedClass   : $module + '-fixed',
-            transition   : _baseTransition,
-            stickyOffset : null
-        }, custom);
-        
-        // Run the code on each occurance of the element
-        return this.each(function() {
-            
-            var header = $(this);
-            var navigation = $(options.navigation);
-            var navDropdown = navigation.find('> ul > li > a:not(:only-child)').parent();
-            
-            function stickyHeader() {
+import * as app from '../../../app';
+import defaults from './header.json';
 
-                var stickyOffset = options.stickyOffset || header.offset().top;
+/**
+ * Header
+ * 
+ * @access public
+ * 
+ * @param {(String|HTMLElement|NodeList)} els
+ * @param {Object} custom
+ */
+export function header(els = 'header', custom = {}) {
 
-                function stickHeader() {
-                    header.addClass(options.fixedClass);
-                    navDropdown.hover(
-                        function() { 
-                            $(options.overlay).siteOverlay('show', 'navDropdown');
-                        },
-                        function() { 
-                            $(options.overlay).siteOverlay('hide', 'navDropdown');
-                        }
-                    );
+    custom = app.custom('header', custom);
+
+    app.Synergy(els, (el, options) => {
+
+        const stickyOffset = options.sticky.offset || el.offsetTop;
+
+        if (options.sticky.enabled || el.modifier('sticky')) {
+            window.addEventListener('load', stickyHeaderHandler);
+            window.addEventListener('scroll', stickyHeaderHandler);
+        }
+
+        function stickyHeaderHandler() {
+            return toggleStickyHeader({
+                type: (window.scrollY > stickyOffset) ? 'stick' : 'unstick', 
+                target: el,
+                navigation: app.Synergy(options.navigation).query[0],
+                overlay: options.overlay,
+                dropdownShowOverlay: exports.dropdownShowOverlay,
+                dropdownHideOverlay: exports.dropdownHideOverlay,
+                config: options
+            });
+        }
+
+        exports.dropdownShowOverlay = () => app.overlay(options.overlay).show('navDropown');
+        exports.dropdownHideOverlay = () => app.overlay(options.overlay).hide('navDropown');
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config.header = app.parse(defaults.header, custom);
+
+    return exports;
+}
+
+/**
+ * Toggle Header Stickyness
+ * 
+ * @access private
+ * 
+ * @param {Object} options
+ */
+function toggleStickyHeader(options) {
+
+    const operator = (options.type === 'stick') ? 'add' : 'remove';
+
+    app.Synergy([document.body, options.config.name]).component('isFixed', operator);
+
+    // toggle fixed modifier
+    app.Synergy(options.target).modifier('fixed', (options.type === 'stick') ? 'add' : 'remove');
+
+    if (options.navigation && options.navigation.children) {
+        // loop over each top level navigation item
+        Array.prototype.forEach.call(options.navigation.children[0].children, el => {
+            // if the nav item has a child menu
+            if (el.querySelector('ul') && options.overlay) {
+                if (options.type === 'stick') {
+                    el.addEventListener('mouseenter', options.dropdownShowOverlay, false);
+                    el.addEventListener('mouseleave', options.dropdownHideOverlay, false);
+                } else {
+                    el.removeEventListener('mouseenter', options.dropdownShowOverlay, false);
+                    el.removeEventListener('mouseleave', options.dropdownHideOverlay, false);
                 }
-
-                function unStickHeader() {
-                    header.removeClass(options.fixedClass);
-                    navDropdown.unbind('mouseenter mouseleave');
-                    $(options.overlay).siteOverlay('hide');
-                }
-    
-                $(window).on('load scroll', function(e) {
-                    var scroll = $(window).scrollTop();
-                    if (scroll > stickyOffset) {
-                        stickHeader();
-                    } else {
-                        unStickHeader();
-                    }
-                });
-            
             }
-                
-            if (options.sticky)  {
-                stickyHeader();
-            }
+        });
+    }
 
-        }); // this.each
- 
-    }; // header()
- 
-}(jQuery));
+    if (options.overlay && options.type === 'unstick') {
+        options.dropdownHideOverlay();
+    }
+}

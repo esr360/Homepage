@@ -1,30 +1,14 @@
+@import '../../modules/elements/headings/headings.json';
 /// Headings
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group elements
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all heading styles
-///
-/// @example
-///     @include headings((
-///         'font'      : 'Times New Roman',
-///         'icon-size' : 24px
-///     ));
-@mixin headings($custom: ()) {
+@mixin headings($custom: custom('headings')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
-
-    $headings: config((
-        'name' : 'heading',
-        'group_heading-lineHeight': 0.8,
-        'sizes':(
-            'sizes': typography-config('sizes')
-        )
-    ), $custom);
+    $headings: config($headings, $custom);
 
     //*************************************************************
     // Module
@@ -42,7 +26,7 @@
         // Sizes
         //*********************************************************
 
-        @include font-sizes(this('sizes'));
+        @include font-sizes(('sizes': this('sizes')));
 
         //*********************************************************
         // Modifiers
@@ -55,13 +39,13 @@
 
         @include modifier('light') {
             font-weight: lighter;
-            font-weight: 300;
+            font-weight: 100;
         }
 
         @include modifier('uppercase') {
             text-transform: uppercase;
         }
-        
+
         @include modifier('flush') {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
@@ -72,12 +56,12 @@
         //*********************************************************
 
         @include component('group') {
-        
+
             @include vertical-rhythm('bottom');
-            margin-bottom: core('margin');
-            font-size: 1rem;
             position: relative;
+            margin-bottom: core('margin');
             background-size: cover;
+            font-size: 1rem;
 
             @include module('heading') {
                 @include vertical-rhythm;
@@ -85,7 +69,7 @@
                 margin-bottom: 0.5em;
                 line-height: this('group_heading-lineHeight');
             }
-        
+
         }
 
         //*********************************************************

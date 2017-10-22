@@ -1,35 +1,30 @@
-(function ($) {
-    
-    /**
-     * KAYZEN
-     * Because .scrollTop() is already defined by jQuery, we must
-     * call our plugin something else, i.e. scrollToTop();
-     * @module: 'scroll-top'
-     * @author: @esr360
-     */
-    $.fn.scrollToTop = function(custom) {
-        
-        // Options
-        var options = $.extend({
-            activePosition : 350,
-            activeClass    : 'visible'
-        }, custom);
-        
-        // Run the code on each occurance of the element
-        return this.each(function() {
-            
-            var scrollTopIcon = $(this);
-            
-            $(window).bind('scroll', function() {
-                if ($(this).scrollTop() > options.activePosition) {
-                    $(scrollTopIcon).addClass(options.activeClass);
-                } else {
-                    $(scrollTopIcon).stop().removeClass(options.activeClass);
-                }
-            });
-            
-        }); // this.each
+import * as app from '../../../app';
+import defaults from './scroll-top.json';
 
-    }; // scrollToTop()
+/**
+ * Preloader
+ * 
+ * @access public
+ * 
+ * @param {(String|HTMLElement|NodeList)} els
+ * @param {Object} custom
+ */
+export function scrollTop(els = 'scroll-top', custom = {}) {
 
-}(jQuery));
+    custom = app.custom('scroll-top', custom);
+
+    app.Synergy(els, (el, options) => {
+
+        window.addEventListener('scroll', () => {
+            exports[(window.scrollY > options.activePosition) ? 'show' : 'hide']();
+        });
+
+        exports.show = () => el.modifier('visible', 'add');
+        exports.hide = () => el.modifier('visible', 'remove');
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config['scroll-top'] = app.parse(defaults['scroll-top'], custom);
+
+    return exports;
+}

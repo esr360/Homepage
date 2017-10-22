@@ -1,148 +1,179 @@
-(function ($) {
-    
-    /**
-     * KAYZEN
-     * @module: 'google-map'
-     * @author: @esr360
-     */
-    $.fn.googleMap = function(custom) {
-        
-        // Options
-        
-        // Fetch the map colors from the CSS
-        var _mapColor = _modules['google-map']['colors'];
-        
-        var options = $.extend({
-            styles: [
-                {
-                    "featureType" : "water", 
-                    "elementType" : "geometry",
-                    "stylers" : [{
-                        "color" : _mapColor['water']
-                    }]
-                },
-                {
-                    "featureType" : "landscape",
-                    "elementType" : "geometry",
-                    "stylers" : [{
-                        "color" : _mapColor['landscape']
-                    }]
-                },
-                {
-                    "featureType" : "road",
-                    "elementType" : "geometry",
-                    "stylers" : [
-                        { "color" : _mapColor['road'] },
-                        { "lightness" : -37 }
-                    ]
-                },
-                {
-                    "featureType" : "poi",
-                    "elementType" : "geometry",
-                    "stylers" : [{
-                        "color" : _mapColor['poi']
-                    }]
-                },
-                {
-                    "featureType" : "transit",
-                    "elementType" : "geometry",
-                    "stylers" : [{
-                        "color" : _mapColor['transit']
-                    }]
-                },
-                {
-                    "elementType" : "labels.text.stroke",
-                    "stylers" : [
-                        { "visibility" : "on" },
-                        { "color" : _mapColor['stroke'] },
-                        { "weight" : 2 },
-                        { "gamma" : 0.84 }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "geometry",
-                    "stylers": [
-                        { "color": _mapColor['highway'] }
-                    ]
-                },
-                {
-                    "elementType" : "labels.text.fill",
-                    "stylers" : [{
-                        "color" : "#ffffff"
-                    }]
-                },
-                {
-                    "featureType" : "administrative",
-                    "elementType" : "geometry",
-                    "stylers" : [
-                        { "weight" : 0.6 },
-                        { "color" : _mapColor['administrative'] }
-                    ]
-                },
-                {
-                    "elementType" : "labels.icon",
-                    "stylers" : [{
-                        "visibility" : "off"
-                    }]
-                },
-                {
-                    "featureType" : "poi.park",
-                    "elementType" : "geometry",
-                    "stylers" : [{
-                        "color" : _mapColor['park']
-                    }]
-                }
-            ],
-            longitude: _modules['google-map']['location'][0],
-            latitude: _modules['google-map']['location'][1],
-            zoom: 14
-        }, custom);
-        
-        // Run the code on each occurance of the element
-        return this.each(function() {
+import * as app from '../../../app';
+import defaults from './google-map.json';
 
-            // When the window has finished loading create our google map
-            google.maps.event.addDomListener(window, 'load', init);
+/**
+ * Google Map
+ * 
+ * @access public
+ * 
+ * @param {(String|HTMLElement|NodeList)} els
+ * @param {Object} custom
+ */
+export function googleMap(els = 'google-map', custom = {}) {
 
-            // Get the HTML DOM element that will contain your map 
-            var mapElement = $(this)[0];
-            
-            function init() {
-            
-                // When the window has finished loading create our google map
-                if($(this).length == 1) {
-                    google.maps.event.addDomListener(window, 'load', init);
-                }
-                    
-                // Basic options for a simple Google Map
-                // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-                var mapOptions = {
-                    
-                    // How zoomed in you want the map to start at (always required)
-                    zoom: options.zoom,
+    custom = app.custom('google-map', custom);
 
-                    // Disable scroll-wheel zoom
-                    scrollwheel: false,
+    app.Synergy(els, (el, options) => { 
 
-                    draggable: false,
+        // set some default map styles
+        options.styles = options.styles || [
+            {
+                "featureType": "landscape.man_made",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#f7f1df"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#d0e3b4"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural.terrain",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.business",
+                "elementType": "all",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.medical",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#fbd3da"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#bde6ab"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffe15f"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#efd151"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#ffffff"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "black"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station.airport",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#cfb2db"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#a2daf2"
+                    }
+                ]
+            }
+        ];
 
-                    // The latitude and longitude to center the map (always required)
-                    center: new google.maps.LatLng(options.longitude, options.latitude), 
+        // merge any data-attribute options
+        if (el.hasAttribute('data-google-map')) {
+            options = Object.assign(options, JSON.parse(el.getAttribute('data-google-map')));
+        }
 
-                    // How you would like to style the map? 
-                    // This is where you would paste any style found on Snazzy Maps.
-                    styles: options.styles
-                    
-                };
+        // set final googleApi options
+        options.googleApi = Object.assign(options.googleApi, {
+            styles: options.styles,
+            center: new google.maps.LatLng(options.longitude, options.latitude)
+        });
 
-                // Create the Google Map using our element and options defined above
-                var map = new google.maps.Map(mapElement, mapOptions);
-                
-            } // init()
+        // set height of google map
+        el.style.height = options.height;
 
-        }); // this.each
- 
-    }; // googleMap()
- 
-}(jQuery));
+        // create the google map
+        google.maps.event.addDomListener(window, 'load', new google.maps.Map(el, options.googleApi));
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config['google-map'] = app.parse(defaults['google-map'], custom);
+
+    return exports;
+}

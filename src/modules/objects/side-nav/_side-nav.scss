@@ -1,172 +1,134 @@
-//=================================================================
-// Side Navigation
-//=================================================================
+@import '../../modules/objects/side-nav/side-nav.json';
+/// sideNav
+///
+/// @access public
+/// @group objects
+///
+/// @param {map} $custom - where custom config will be passed
+@mixin side-nav($custom: custom('sideNav')) {
 
-@mixin side-nav($custom: ()) {
-
-    //-------------------------------------------------------------
     // Config
-    //-------------------------------------------------------------
+    $side-nav: config($side-nav, $custom);
 
-    $side-nav: config((
-        'name'                     : 'side-nav',
-        'output-json'              : true,
-        // parent-item
-        'parent-color'             : color('greyscale', 'white'),
-        'parent-background'        : rgba(black, 0.15),
-        'parent-left-border'       : 5px solid color('brand', 'brand-1'),
-        // parent-item:hover
-        'parent-hover-background'  : color('brand', 'brand-1'),
-        // parent-item.active
-        'parent-active-background' : color('brand', 'brand-1'),
-        // list-item
-        'item-padding'             : 1.2em,
-        'item-color'               : color('greyscale', 'grey-3'),
-        'item-bg'                  : rgba(black, 0.15),
-        'item-top-border'          : 1px solid rgba(white, 0.05),
-        'item-bottom-border'       : 1px solid rgba(black, 0.1),
-        'item-left-border'         : 5px solid rgba(black, 0.3),
-        'item-right-border'        : none,
-        // list-item:hover
-        'item-hover-left-border'   : 5px solid color('brand', 'brand-1'),
-        'item-hover-color'         : color('greyscale', 'white'),
-        'item-hover-bg'            : color('brand', 'brand-1'),
-        // settings
-        'show-y-scrollbar'         : false,
-        'collapsible'              : (
-            'enabled'              : true,
-            'open-by-default'      : true,
-            'icon'                 : 'fa-chevron-circle-down'
-        )
-    ), $custom) !global;
-
-    //-------------------------------------------------------------
-    // Component
-    //-------------------------------------------------------------
+    //*************************************************************
+    // Module
+    //*************************************************************
 
     @include module {
-        
+
+        position: fixed;
+        z-index: 13;
+        top: 0;
+        left: -100%;
+        max-width: 100%;
+        height: 100%;
         overflow: auto;
-        
-        @include option('show-y-scrollbar') {
-           overflow-y: scroll;
+
+        @include modifier('visible') {
+            left: 0;
         }
-            
+
+        @include component('dropdown') {
+            @include component('toggle') {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: this('item', 'padding');
+                transition: core('transition');
+                line-height: 1.5;
+                cursor: pointer;
+
+                &:hover {
+                    background: this('parent', 'background');
+                    color: this('parent', 'color');
+                }
+
+                li:hover & {
+                    color: this('parent', 'color');
+                }
+            }
+        }
+
         nav {
-            
+
             ul {
-                @include extend(
-                    $parent: 'list', $modifiers: 'reset'
-                );
-                text-align: left;
-                margin-top: 0;
-                width: 100%;
-                position: relative;
-                opacity: 1;
+                @include _module('list', ('reset'), false);
                 visibility: visible;
+                position: relative;
+                width: 100%;
+                margin-top: 0;
+                opacity: 1;
+                text-align: left;
+
                 li {
                     display: block;
+                    position: relative;
                     margin-left: 0;
+
                     &:hover {
-                        > a, a:not(:only-child) {
+                        > a {
+                            @include get-styles(this('item', 'hover'));
                             border-right: none;
-                            background: this('item-hover-bg');
-                            border-left: this('item-hover-left-border');
-                            color: this('item-hover-color');
                         }
                     }
                 }
+
                 a {
+                    @include get-styles(this('item'));
                     display: block;
                     position: relative;
-                    text-decoration: none;
                     border-radius: 0;
-                    
-                    padding: this('item-padding');
-                    color: this('item-color');
-                    border-top: this('item-top-border');
-                    border-bottom: this('item-bottom-border');
-                    border-left: this('item-left-border');
-                    border-right: this('item-right-border');
-                    &:after {
+                    text-decoration: none;
+
+                    &::after {
                         display: none;
                     }
-                }   
+                }
+
                 ul {
                     li {
                         &:hover {
                             a {
-                                color: this('item-hover-color');
+                                border-top: this('item', 'border-top');
+                                border-bottom: this('item', 'border-bottom');
+                                border-top-color: this('item', 'border-top-color');
+                                border-bottom-color: this('item', 'border-bottom-color');
                                 background: transparent;
-                                border-top: this('item-top-border');
-                                border-bottom: this('item-bottom-border');
+                                color: this('item', 'hover', 'color');
                             }
                         }
                     }
+
                     ul {
                         padding-left: 1.5em;
                     }
                 }
             }
-        
+
             // Parent Items
-            > ul {		
+            > ul {
                 > li {
                     > a {
-                        color: this('parent-color');
-                        border-left: this('parent-left-border');
-                        background: this('parent-background');
+                        @include get-styles(this('parent'));
                         &.active {
-                            background: this('parent-active-background');
+                            @include get-styles(this('parent', 'active'));
                         }
                     }
+
                     &:hover {
                         > a {
-                            border-color: transparent;
+                            @include get-styles(this('parent', 'hover'));
                             border-right: none;
-                            background: this('parent-hover-background');
+                            border-color: transparent;
                         }
                     }
                 }
             }
-        
-        } // nav
-        
-        &::-webkit-scrollbar {
-            width: 14px;
-        }
-        &::-webkit-scrollbar-thumb {
-            border-left: 1px solid rgba(white, 0.075);
-            background-image: linear-gradient(
-                to right, rgba(white, 0.025), rgba(black, 0.5)
-            );
-        }
-            
-        @include module(('logo', 'navigation')) {
-            display: block;
-        }
-        
-    // Components
-    //-------------------------------------------------------------
 
-        // @TODO perhaps rename to 'toggle'?
-        @include component('openClose') {
-            position: absolute;
-            top: -1px;
-            right: 0;
-            padding: 1.45em;
-            cursor: pointer;
-            transition: core('transition');
-            opacity: 0.6;
+        } // nav
+
+        .collapsed {
             display: none;
-            &:hover {
-                background: rgba(color('greyscale', 'black'), 0.2);
-                opacity: 1;
-            }
-        }
-        
-        @include component('openClose') {
-            display: block;
         }
 
         //*********************************************************
@@ -176,5 +138,5 @@
         @content;
 
     } // module
-	
+
 } // @mixin side-nav

@@ -1,45 +1,14 @@
-/// Buttons
+@import '../../modules/elements/tabs/tabs.json';
+/// Tabs
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group elements
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all button styles
-///
-/// @example
-///     @include buttons((
-///         'round-radius' : 4px,
-///         'weight'       : bold
-///     ));
-@mixin tabs($custom: ()) {
+@mixin tabs($custom:  custom('tabs')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
-
-    $tabs: config((
-        'name'                       : 'tabs',
-        'output-json'                : true,
-        'navItem-transition'         : core('transition'),
-        'navItem-color'              : core('text-color'),
-        'navItem-background'         : transparent,
-        'navItem-radius'             : 0.6em,
-        'navItem-padding'            : 0.75em 1.25em,
-        'navItem-borderColor'        : color('greyscale', 'grey-3'),
-        'navItem-hover-color'        : color('greyscale', 'grey-5'),
-        'navItem-hover-background'   : darken(color('greyscale', 'grey-1'), 4%),
-        'navItem-active-color'       : color('greyscale', 'white'),
-        'navItem-active-background'  : color('brand', 'brand-1'),
-        'navItem-active-borderColor' : color('brand', 'brand-1'),
-        'contentBlock-color'         : core('text-color'),
-        'contentBlock-background'    : color('greyscale', 'white'),
-        'contentBlock-borderColor'   : color('greyscale', 'grey-2'),
-        'contentBlock-padding'       : 1.5em,
-        'contentBlock-glueHeight'    : 6px,
-        'contentBlock-glueColor'     : color('brand', 'brand-1'),
-        'contentBlock-deepPadding'   : 2.5em
-    ), $custom);
+    $tabs: config($tabs, $custom);
 
     //*************************************************************
     // Module
@@ -50,119 +19,107 @@
         //*********************************************************
         // Components
         //*********************************************************
-            
+
         @include component('nav') {
-            
-            @include extend($parent: 'list', $modifiers: 'reset');
+
+            @include _module('list', ('reset'), false);
 
             display: table;
-            margin-bottom: 0;
             position: relative;
             z-index: 2;
-            
+            margin-bottom: 0;
+
             @include modifier('round') {
                 @include component('item') {
                     &:first-child {
-                        border-top-left-radius: this('navItem-radius');
+                        border-top-left-radius: this('nav', 'item', 'round-radius');
                     }
+
                     &:last-child {
-                        border-top-right-radius: this('navItem-radius');
+                        border-top-right-radius: this('nav', 'item', 'round-radius');
                     }
                 }
             }
-            
-            @include component('item') {
-                color: this('navItem-color');
-                padding: this('navItem-padding');
-                background: this('navItem-background');
-                border: 1px solid this('navItem-borderColor');
-                transition: this('navItem-transition');
-                display: table-cell;
-                cursor: pointer;
-                &.active {
-                    color: this('navItem-active-color');
-                    border-color: this('navItem-active-borderColor');
-                    background: this('navItem-active-background');
-                    + li {
-                        border-left-color: this('navItem-active-borderColor');
-                    }
-                    &:hover {
-                        color: this('navItem-active-color');
-                    }
-                }
-                &:hover:not(.active) {
-                    background: this('navItem-hover-background');
-                }
-                &:not(:last-child) {
-                    border-right: none;
-                }
-                @include modifier('round') {
-                    &:first-child {
-                        border-radius: this('navItem-radius') 0 0 this('navItem-radius');
-                    }
-                    &:last-child {
-                        border-radius: 0 this('navItem-radius') this('navItem-radius') 0;
-                    }
-                }
-            }
-            
+
             @include modifier('center') {
-                margin-left: auto;
                 margin-right: auto;
+                margin-left: auto;
             }
-            
+
             @include modifier('left') {
                 margin-right: auto;
             }
-            
+
             @include modifier('right') {
                 margin-left: auto;
             }
-            
+
             @include modifier('full') {
                 width: 100%;
             }
-            
-            @include modifier('large') {
-                margin-bottom: (core('margin') * 2);
-            }
-            
-        } // component(nav)
-        
-        @include component('content') {
-            @include modifier('block') {
-                background: this('contentBlock-background');
-                color: this('contentBlock-color');
-                padding: this('contentBlock-padding');
-                border: 1px solid this('contentBlock-borderColor');
-                position: relative;
-                top: -1px;
-                @include modifier('glue') {
-                    $tabs-glue: this('contentBlock-glueHeight');
-                    margin-top: $tabs-glue;
-                    top: -2px;
-                    z-index: 2;
-                    &:before {
-                        content: "";
-                        position: absolute;
-                        left: -1px;
-                        top: -$tabs-glue;
-                        height: $tabs-glue;
-                        width: calc(100% + 2px);
-                        border: 1px solid this('contentBlock-glueColor');
-                        background: this('contentBlock-glueColor');
+
+            @include component('item') {
+                display: table-cell;
+                cursor: pointer;
+
+                @include modifier('active') {
+                    + li {
+                        border-left-color: this('nav', 'item', 'active', 'border-color');
+                    }
+
+                    &:hover {
+                        background: this('nav', 'item', 'active', 'background');
+                        color: this('nav', 'item', 'active', 'color');
                     }
                 }
-                @include modifier('deep') {
-                    padding: this('contentBlock-deepPadding');
+
+                &:not(:last-child) {
+                    border-right: none;
+                }
+
+                @include modifier('round') {
+                    &:first-child {
+                        border-top-left-radius: this('nav', 'item', 'round-radius');
+                        border-bottom-left-radius: this('nav', 'item', 'round-radius');
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: this('nav', 'item', 'round-radius');
+                        border-bottom-right-radius: this('nav', 'item', 'round-radius');
+                    }
+                }
+            }
+
+        } // component(nav)
+
+        @include component('content') {
+            position: relative;
+            top: -1px;
+
+            @include modifier('glue') {
+                $tabs-glue: this('content', 'glueHeight');
+                z-index: 2;
+                top: -2px;
+                margin-top: $tabs-glue;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: -$tabs-glue;
+                    left: -1px;
+                    width: calc(100% + 2px);
+                    height: $tabs-glue;
+                    border: 1px solid this('content', 'glueColor');
+                    background: this('content', 'glueColor');
                 }
             }
         }
-        
+
         @include component('item') {
-            display: none;
-            &.active {
-                display: block;
+            display: none !important;
+
+            @include modifier('active') {
+                display: block !important;
             }
         }
 

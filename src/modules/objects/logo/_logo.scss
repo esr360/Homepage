@@ -1,46 +1,35 @@
-//=================================================================
-// Logo
-//=================================================================
+@import '../../modules/objects/logo/logo.json';
+/// Logo
+///
+/// @access public
+/// @group objects
+///
+/// @param {map} $custom - where custom config will be passed
+@mixin logo($custom: custom('logo')) {
 
-@mixin logo($custom: ()) {
-
-    //-------------------------------------------------------------
     // Config
-    //-------------------------------------------------------------
+    $logo: config($logo, $custom);
 
-    $logo: config((
-        'name'         : 'logo',
-        'text-align'   : left,
-        'color'        : white,
-        'size'         : font-size('size-5'),
-        'padding'      : 0,
-        'image-height' : 38px
-    ), $custom);
+    //*************************************************************
+    // Module
+    //*************************************************************
 
-    //-------------------------------------------------------------
-    // Component
-    //-------------------------------------------------------------
+    @include module {
 
-    @include module {	
-
-        color: this('color');
-        font-size: this('size');
-        text-align: this('text-align');
-        padding: this('padding');
-        
         // for plain text logos
         a {
-            color: this('color');
             display: inline-block;
+            color: this('color');
+
             &:hover {
                 text-decoration: none;
             }
         }
-        
+
         // for image logos
         img {
-            height: this('image-height');
             display: inline-block;
+            height: this('image-height');
             vertical-align: middle;
         }
 

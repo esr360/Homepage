@@ -1,30 +1,14 @@
+@import '../../modules/elements/lists/lists.json';
 /// Buttons
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group elements
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all button styles
-///
-/// @example
-///     @include buttons((
-///         'round-radius' : 4px,
-///         'weight'       : bold
-///     ));
-@mixin lists($custom: ()) {
+@mixin lists($custom: custom('lists')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
-
-    $lists: config((
-        'name'               : 'list',
-        'small-size'         : font-size('size-1'),
-        'inline-spacing'     : 1em,
-        'arrow-icon'         : "\f138",
-        'arrow-color'        : color('brand', 'brand-1')
-    ), $custom);
+    $lists: config($lists, $custom);
 
     //*************************************************************
     // Module
@@ -40,51 +24,54 @@
             padding-left: 0;
             list-style: none;
         }
-        
+
         @include modifier('clear') {
             padding-left: 1em;
         }
-        
+
         @include modifier('inline') {
             > li {
                 display: inline-block;
+
                 + li {
                     margin-left: this('inline-spacing');
                 }
             }
         }
-        
+
         @include modifier('divider') {
             > li {
                 &:not(:last-child) {
-                    padding-bottom: 1em;
                     margin-bottom: 1em;
-                    border-bottom: 1px dotted rgba(black, 0.2);
+                    padding-bottom: 1em;
+                    border-bottom: 1px dotted color('opaque', 'dark-2');
                 }
             }
         }
-        
+
         @include modifier('arrow') {
             @include extend('reset');
             > li {
                 position: relative;
-                line-height: 1.7;
                 margin-bottom: 0;
                 padding-left: 1.5em;
-                &:before {
-                    @include vertical-center(absolute);
+                line-height: 1.7;
+
+                &::before {
+                    @include vertical-center();
                     content: this('arrow-icon');
                     display: inline-block;
                     left: 0;
-                    font-family: FontAwesome;
                     margin-right: 0.5em;
+                    font-family: FontAwesome;
                 }
             }
+
             @include modifier('highlight') {
                 color: this('arrow-color');
             }
         }
-        
+
         @include modifier('group') {
             > li + li {
                 margin-top: 1em;
@@ -96,7 +83,7 @@
         //*********************************************************
 
         @content;
-        
+
     } // module
 
 } // @mixin lists

@@ -1,41 +1,44 @@
-(function ($) {
-    
-    /**
-     * 
-     * KAYZEN
-     * @module: 'search-box'
-     * @author: @esr360
-     * 
-     */
+import * as app from '../../../app';
+import defaults from './search.json';
 
-    $.fn.searchBox = function(custom) {
-        
-        // Options
-        var options = $.extend({
-            
-            container    : _searchBox,
-            input        : '[type="search"]',
-            closeTrigger : '.search-box_close',
-            visibleClass : 'search-box-visible'
-            
-        }, custom);
-        
-        // Run the code on each occurance of the element
-        return this.each(function() {
-            
-            $(this).click(function() {
-                $(options.container).addClass(options.visibleClass);
-                setTimeout(function () {
-                    $(options.container).find(options.input).focus();
-                }, _baseTransition);
-            });
-                        
-            $(options.closeTrigger).click(function() {
-                $(options.container).removeClass(options.visibleClass);
-            });
-            
-        }); // this.each
+/**
+ * Search
+ * 
+ * @access public
+ * 
+ * @param {(String|HTMLElement|NodeList)} els
+ * @param {Object} custom
+ */
+export function search(els = 'searchBox', custom = {}) {
 
-    }; // searchBox()
+    custom = app.custom('search', custom);
 
-}(jQuery));
+    app.Synergy(els, (el, options) => {
+
+        app.Synergy(options.name).component('toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => exports.toggle());
+        });
+
+        app.Synergy(options.name).component('close').forEach(close => {
+            close.addEventListener('click', () => exports.hide());
+        });
+
+        exports.show = () => exports.toggle('show');
+        exports.hide = () => exports.toggle('hide');
+
+        exports.toggle = operator => {
+            const state = (el.modifier('visible') && operator !== 'show' || operator === 'hide') ? 'unset' : 'set';
+
+            el.modifier('visible', state);
+
+            if (state === 'set') {
+                window.setTimeout(() => el.component('input')[0].focus(), 100);
+            }
+        };
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config.search = app.parse(defaults.search, custom);
+
+    return exports;
+}

@@ -1,31 +1,14 @@
+@import '../../modules/elements/forms/forms.json';
 /// Forms
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group elements
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all form styles
-///
-/// @example
-///     @include forms((
-///         'font'      : 'Times New Roman',
-///         'icon-size' : 24px
-///     ));
-@mixin forms($custom: ()) {
+@mixin forms($custom: custom('forms')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
-
-    $forms: config((
-        'name'             : 'form',
-        'input-color'      : core('text-color'),
-        'input-border'     : 1px solid color('greyscale', 'grey-3'),
-        'input-padding'    : 0.75em,
-        'valid-color'      : color('validation', 'valid'),
-        'invalid-color'    : color('validation', 'invalid')
-    ), $custom);
+    $forms: config($forms, $custom);
 
     //*************************************************************
     // Module
@@ -34,28 +17,16 @@
     @include module {
 
         //*********************************************************
-        // Core Styles
-        //*********************************************************
-
-        fieldset {
-            padding: 0;
-            border: none;
-        }
-
-        //*********************************************************
         // Components
         //*********************************************************
 
-        @include component('label') {
-            transition: core('transition');
-            color: this('input-color');
-        }
+        @include component('label');
 
         @include component('group') {
 
+            @include vertical-rhythm('bottom');
             position: relative;
             margin-bottom: (core('margin') / 2);
-            @include vertical-rhythm('bottom');
 
             @include modifier('compound') {
                 margin-bottom: (core('margin') / 4);
@@ -73,31 +44,35 @@
 
                 display: table;
                 width: 100%;
-                
-                label { 
-                    display: table-header-group; 
+
+                label {
+                    display: table-header-group;
                 }
 
                 @include module {
                     @include component('input') {
                         display: table-footer-group;
                         float: left;
+
                         &:focus {
                             &:invalid {
-                                &, ~ label, ~ .form_icon {
+                                &, ~ label, ~ #{selector($module, 'icon')} {
                                     border-color: this('invalid-color');
                                     color: this('invalid-color');
                                 }
+
                                 &::placeholder {
                                     border-color: this('invalid-color');
                                     color: this('invalid-color');
                                 }
                             }
+
                             &:valid {
                                 &, ~ label, ~ .form_icon {
                                     border-color: this('valid-color');
                                     color: this('valid-color');
                                 }
+
                                 &::placeholder {
                                     border-color: this('invalid-color');
                                     color: this('invalid-color');
@@ -107,32 +82,38 @@
                     }
                 }
 
-            }
+            } // modifier('validate')
 
-        }
+        } // component('group')
 
         @include component('icon') {
-            @include vertical-center(absolute);
-            color: this('input-color');
+            @include vertical-center();
             position: absolute;
             left: 0.75em;
+            color: this('input', 'color');
         }
 
         @include component('input') {
             display: block;
             width: 100%;
-            padding: this('input-padding');
-            border: this('input-border');
-            transition: core('transition');
-            color: this('input-color');
-            font-family: typography('typefaces', 'primary');
+
             &::placeholder {
-                color: this('input-color');
                 transition: core('transition');
+                color: this('input', 'color');
             }
+
             &:focus {
                 outline: 0;
             }
+        }
+
+        //*********************************************************
+        // Child Elements
+        //*********************************************************
+
+        fieldset {
+            padding: 0;
+            border: none;
         }
 
         //*********************************************************
@@ -140,7 +121,7 @@
         //*********************************************************
 
         @content;
-        
+
     } // module
 
 } // @mixin forms

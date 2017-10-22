@@ -1,23 +1,41 @@
-## One-Nexus Buttons
+## Buttons
+
+##### Components
+
+* group(-pills(-round))
+
+##### Modifiers
+
+* size-{x}
+* {color}
+* block
+* border
+* disabled
+* round
+* oval (alias: circle)
+* sharp
+* icon
+* active
+
+### Quick Look
 
 ```html
 <button class="button">Button</button>
+
 <div class="button-brand-2">Button</div>
+
 <a href="#" class="button-round-brand-3">Button</a>
+
 <span class="button-round-brand-3-border">Button</span>
+
 <input type="submit" class="button-round-success" value="Button" />
+
 <a href="#" class="button-oval-dribbble"><i class="fa fa-dribbble"></i> Button</a>
 ```
 
-### Sass
+### Options
 
-Load the button styles by including the `buttons()` mixin:
-
-```scss
-@include buttons();
-```
-
-The following options can be passed to the mixin to customize the buttons:
+For default values view the [`buttons.json`](buttons.json) file. Standard CSS properties for modules, components and modifiers are not documented below - [learn more](https://github.com/esr360/Synergy/wiki/Configuring-a-Module#pass-custom-css-to-modules).
 
 <table class="table">
     <thead>
@@ -32,52 +50,12 @@ The following options can be passed to the mixin to customize the buttons:
             <td>The name used when generating the CSS selector</td>
         </tr>
         <tr>
-            <td><code>color</code></td>
-            <td>The default text-color for buttons</td>
-        </tr>
-        <tr>
-            <td><code>background</code></td>
-            <td>The default background for buttons</td>
-        </tr>
-        <tr>
-            <td><code>transition</code></td>
-            <td>The transition speed primarily used for the hover effect</td>
-        </tr>
-        <tr>
             <td><code>h-padding</code></td>
             <td>Thepadding for the left and right of buttons</td>
         </tr>
         <tr>
             <td><code>v-padding</code></td>
             <td>Thepadding for the tpp and bottom of buttons</td>
-        </tr>
-        <tr>
-            <td><code>line-height</code></td>
-            <td>The line height for buttons</td>
-        </tr>
-        <tr>
-            <td><code>font-weight</code></td>
-            <td>The default font weight for buttons</td>
-        </tr>
-        <tr>
-            <td><code>font-family</code></td>
-            <td>The default font family for buttons</td>
-        </tr>
-        <tr>
-            <td><code>border-width</code></td>
-            <td>The border width for buttons with the <code>border</code> modifier</td>
-        </tr>
-        <tr>
-            <td><code>border-style</code></td>
-            <td>The border style for buttons with the <code>border</code> modifier</td>
-        </tr>
-        <tr>
-            <td><code>active-background</code></td>
-            <td>The background for buttons with the <code>active</code> modifier</td>
-        </tr>
-        <tr>
-            <td><code>active-color</code></td>
-            <td>The text color for buttons with the <code>active</code> modifier</td>
         </tr>
         <tr>
             <td><code>disabled-opacity</code></td>
@@ -96,67 +74,61 @@ The following options can be passed to the mixin to customize the buttons:
             <td>The width at which buttons in a group component should stack ontop of one another</td>
         </tr>
         <tr>
-            <td><code>sizes</code></td>
-            <td>Map containing list of font-sizes to create a modifier for</td>
-        </tr>
-        <tr>
             <td><code>palettes</code></td>
-            <td>A list of color palettes to create modifiers for</td>
+            <td>A list of <a href="https://github.com/esr360/One-Nexus/tree/master/src/modules/utilities/colors#default-colors">color palettes</a> to create modifiers for</td>
         </tr>
         <tr>
             <td><code>sizes</code></td>
-            <td>Options to pass to the <a href="../../tools/scss/font-sizes"><code>font-sizes()</code> mixin to determine button font-sizes</a></td>
+            <td>An object where each key will create a modifier using the value for its font size</td>
         </tr>
     </tbody>
 </table>
 
-The above options can be passed to the mixin like so:
+Pass custom options to the `buttons` object in your theme's config file (e.g. [themes/One-Nexus/config.json](../../../themes/One-Nexus/config.json)):
 
-```scss
-@include buttons((
-    'background': blue,
-    'group-spacing': 10px,
-    'sizes':(
-        'small': 8px,
-        'large': 20px
-    )
-));
+```json
+{
+    "app": {
+        "buttons": {
+            "background": "blue",
+            "group-spacing": "10px",
+            "sizes": {
+                "small": "8px",
+                "large": "20px"
+            }
+        }
+    }
+}
 ```
 
 #### Color Palettes
 
-This option accepts a list of palettes defined in the <a href="../utilities/color-palette.html">Color Palette</a> module.
+This option accepts a list of palettes defined by the <a href="../utilities/colors.html">Colors</a> module.
 
-```scss
-@include buttons((
-    'palettes': ('brand', 'greyscale', 'alert', 'social')
-));
+```json
+"palettes": ["brand", "greyscale", "alert", "social"]
 ```
 
 This will create a modifier for each color in each palette, with the color's key as the modifier name.
 
 If you only want to create modifiers for specific colors in a certain palette, you can pass the keys like so:
 
-```scss
-@include buttons((
-    'palettes': (
-        'brand', 
-        ('greyscale': ('grey-1', 'grey-3', 'grey-4')), 
-        'alert', 
-        ('social': ('facebook', 'twitter')
-    )
-));
+```json
+"palettes": [
+    "brand", 
+    {"greyscale": ["grey-1", "grey-3", "grey-4"]}, 
+    "alert", 
+    {"social": ["facebook", "twitter"]
+]
 ```
 
-You can also pass new colors as a regular map:
+You can also pass new colors as an object:
 
-```scss
-@include buttons((
-    'palettes': (
-        'brand', 'greyscale', 'alert', 'social', 
-        ('foo': blue, 'bar': #FF5733)
-    )
-));
+```json
+"palettes": [
+    "brand", "greyscale", "alert", "social", 
+    {"foo": "blue", "bar": "#FF5733"}
+]
 ```
 
 Using your new values like so:
@@ -166,6 +138,41 @@ Using your new values like so:
 <button class="button-foo-round">Button</button>
 <button class="button-bar">Button</button>
 <button class="button-bar-border">Button</button>
+```
+
+#### Sizes
+
+This option accepts an object and will create a modifier for each key using the key's value for the modifier's font-size:
+
+```json
+"sizes": {
+    "size-1": "0.67em",
+    "size-2": "0.83em",
+    "size-3": "1.17em",
+    "size-4": "1.25em",
+    "size-5": "1.5em",
+    "size-6": "2em",
+    "size-7": "2.4em",
+    "size-8": "3em",
+    "size-9": "3.4em"
+}
+```
+
+```html
+<button class="button-size-8">Size 8 Button</button>
+```
+
+By default, a value of <code>typography-config('sizes')</code> is passed to the "sizes" option, which is a funtion to fetch the font sizes from the <a href="https://github.com/esr360/One-Nexus/tree/master/src/modules/utilities/typography#default-values">Typography module</a>.
+
+### Sass
+
+Load the button styles in your theme's main `scss` file (e.g. [themes/One-Nexus/One-Nexus.scss](../../../themes/One-Nexus/One-Nexus.scss)) by including the `buttons()` mixin:
+
+```scss
+@import '../../app';
+@import './config.json';
+
+@include buttons();
 ```
 
 ### Examples
@@ -276,18 +283,19 @@ Modifiers can be combined:
 
 If you are commonly reusing the same combination of modifiers multiple times, you can combine them into a new modifier:
 
-```scss
-@include buttons((
-    'combine':(
-        'primary' : ('round', 'size-4', 'brand-1'),
-        'social'  : ('icon', 'oval', 'size-6')
-    )
-));
+```json
+"buttons" {
+    ...
+    "combine": {
+        "primary" : ["round", "size-4", "brand-1"],
+        "social"  : ["icon", "oval", "size-6", "brand-2"]
+    }
+}
 ```
 
 ```html
 <button class="button-primary">Primary Action</button>
-<button class="button-social-rss"><i class="fa fa-rss"></i></button>
+<button class="button-social"><i class="fa fa-rss"></i></button>
 ```
 
 Which is the equivilent of:

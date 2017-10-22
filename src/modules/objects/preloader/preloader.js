@@ -1,39 +1,36 @@
-(function ($) {
-    
-    /**
-     * @module: 'preloader'
-     * @dependencies: Aloads
-     * @author: @esr360
-     */
-    $.fn.preloader = function(custom) {
-        
-        // Options
-        var options = $.extend({
-            closeSelector : '.preloader_close',
-            disableButton : true
-        }, custom);
-            
-        var preloader = $(this);
-        
-        function hidePreloader() {
-            preloader.addClass('preloader-loaded');
-            setTimeout(function() {
-                preloader.hide();
-            }, _baseTransition);
-        }
-        
-        $(window).bind('load', function() {
-            hidePreloader();
+import * as app from '../../../app';
+import defaults from './preloader.json';
+
+/**
+ * Preloader
+ * 
+ * @access public
+ * 
+ * @param {(String|HTMLElement|NodeList)} els
+ * @param {Object} custom
+ */
+export function preloader(els = 'preloader', custom = {}) {
+
+    custom = app.custom('preloader', custom);
+
+    app.Synergy(els, (el, options) => {
+
+        window.addEventListener('load', () => exports.hide());
+
+        app.Synergy(options.name).component('close').forEach(trigger => {
+            trigger.addEventListener('click', () => exports.hide());
         });
-        
-        if (options.disableButton) {
-            $(options.closeSelector).click(function() {
-                hidePreloader();
-            });
-        } else {
-            $(options.closeSelector).hide();
-        }
- 
-    }; // preloader()
- 
-}(jQuery));
+
+        exports.show = () => exports.toggle('show');
+        exports.hide = () => exports.toggle('hide');
+
+        exports.toggle = operator => el.modifier('hidden', 
+            (el.modifier('hidden') && operator !== 'hide' || operator === 'show') ? 'unset' : 'set'
+        );
+
+    }, defaults, custom, app.evalConfig);
+
+    app.config.preloader = app.parse(defaults.preloader, custom);
+
+    return exports;
+}

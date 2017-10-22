@@ -1,46 +1,36 @@
-## One-Nexus Forms
+## Forms
 
-#### Default
+##### Components
+
+* label
+* group(-compound, -has-icon, -validate)
+* input
+* icon
+* bullet
+
+##### Modifiers
+
+* _This module has no modifiers_
+
+### Quick Look
 
 ```html
 <form class="form">
     <div class="form_group">
         <label class="form_label">Your Name</label>
-        <input type="text" class="form_input" placeholder="E.g. John Doe">
+        <input class="form_input" type="text" placeholder="E.g. John Doe">
     </div>
     <div class="form_group">
         <label class="form_label">Your Message</label>
         <textarea class="form_input" placeholder="Enter your message..."></textarea>
     </div>
-    <button type="submit" class="button">Submit</button>
+    <button class="button" type="submit">Submit</button>
 </form>
 ```
 
-#### With HTML5 Validation
+### Options
 
-```html
-<form class="form">
-    <div class="form_group-validate">
-        <input required type="text" class="form_input" placeholder="E.g. John Doe">
-        <label class="form_label">Your Name</label>
-    </div>
-    <div class="form_group-validate">
-        <textarea required class="form_input" placeholder="Enter your message..."></textarea>
-        <label class="form_label">Your Message</label>
-    </div>
-    <button type="submit" class="button">Submit</button>
-</form>
-```
-
-### Sass
-
-Load the form styles by including the `forms()` mixin:
-
-```scss
-@include accordions();
-```
-
-The following options can be passed to the mixin to customize the forms:
+For default values view the [`forms.json`](forms.json) file. Standard CSS properties for modules, components and modifiers are not documented below - [learn more](https://github.com/esr360/Synergy/wiki/Configuring-a-Module#pass-custom-css-to-modules).
 
 <table class="table">
     <thead>
@@ -57,21 +47,6 @@ The following options can be passed to the mixin to customize the forms:
             <td><code>'form'</code></td>
         </tr>
         <tr>
-            <td><code>input-color</code></td>
-            <td>The text color for input elements</td>
-            <td><code>core('text-color')</code></td>
-        </tr>
-        <tr>
-            <td><code>input-border</code></td>
-            <td>The border for input elements</td>
-            <td><code>1px solid color('greyscale', 'grey-3')</code></td>
-        </tr>
-        <tr>
-            <td><code>input-padding</code></td>
-            <td>The padding for input elements</td>
-            <td><code>0.75em</code></td>
-        </tr>
-        <tr>
             <td><code>valid-color</code></td>
             <td>The color for valid HTML5 inputs</td>
             <td><code>color('validation', 'valid')</code></td>
@@ -84,16 +59,47 @@ The following options can be passed to the mixin to customize the forms:
     </tbody>
 </table>
 
-The above options can be passed to the mixin like so:
+Pass custom options to the `forms` object in your theme's config file (e.g. [themes/One-Nexus/config.json](../../../themes/One-Nexus/config.json)):
+
+```json
+{
+    "app": {
+        "forms": {
+            "valid-color": "#00cbff",
+            "invalid-color": "#8700ff"
+        }
+    }
+}
+```
+
+### Sass
+
+Load the carousel styles in your theme's main `scss` file (e.g. [themes/One-Nexus/One-Nexus.scss](../../../themes/One-Nexus/One-Nexus.scss)) by including the `forms()` mixin:
 
 ```scss
-@include forms((
-    'input-color': color('brand', 'brand-3'),
-    'input-border': 1px solid color('brand', 'brand-3')
-));
+@import '../../app';
+@import './config.json';
+
+@include forms();
 ```
 
 ### Examples
+
+#### With HTML5 Validation
+
+```html
+<form class="form">
+    <div class="form_group-validate">
+        <input required type="text" class="form_input" placeholder="E.g. John Doe">
+        <label class="form_label">Your Name</label>
+    </div>
+    <div class="form_group-validate">
+        <textarea required class="form_input" placeholder="Enter your message..."></textarea>
+        <label class="form_label">Your Message</label>
+    </div>
+    <button type="submit" class="button">Submit</button>
+</form>
+```
 
 #### Form Group With Icon
 

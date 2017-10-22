@@ -1,39 +1,14 @@
+@import '../../modules/elements/carousels/carousels.json';
 /// Carousels
 ///
-/// @author [@esr360](http://twitter.com/esr360)
 /// @access public
 /// @group elements
 ///
 /// @param {map} $custom - where custom config will be passed
-/// @outputs all carousel styles
-///
-/// @example
-///     @include carousels((
-///     ));
-@mixin carousels($custom: ()) {
+@mixin carousels($custom: custom('carousels')) {
 
-    //*************************************************************
     // Configuration
-    //*************************************************************
-
-    $carousels: config((
-        'name'             : 'carousel',
-        'output-json'      : true,
-        'nav-buttons':(
-            'enabled'      : true,
-            'size'         : font-size('size-6'),
-            'transition'   : core('transition'),
-            'prev'         : '\f137',
-            'next'         : '\f138'
-        ),
-        'bullets':(
-            'enabled'      : true,
-            'size'         : 10px,
-            'color'        : rgba(black, 0.4),
-            'transition'   : core('transition'),
-            'active-color' : grey
-        )
-    ), $custom);
+    $carousels: config($carousels, $custom);
 
     //*************************************************************
     // Module
@@ -42,73 +17,71 @@
     @include module {
 
         //*********************************************************
-        // Core Styles
-        //*********************************************************
-
-        position: relative;
-
-        //*********************************************************
         // Components
         //*********************************************************
 
-        @include component('nav') {
-
-            position: relative;
-
-            @include component('item') {
-                position: absolute;
-                cursor: pointer;
-                transition: this('nav-buttons', 'transition');
-                font-size: this('nav-buttons', 'size');
-                &:before {
-                    font-family: FontAwesome;
-                }
-                @include modifier('prev') {
-                    display: inline-block;
-                    left: 0;
-                    &:before {
-                        content: this('nav-buttons', 'prev');
-                    }
-                }
-                @include modifier('next') {
-                    top: 0;
-                    right: 0;
-                    &:before {
-                        content: this('nav-buttons', 'next');
-                    }
-                }
-            }
-
+        @include component('slide') {
+            width: 100%;
         }
 
-        @include component('bullets') {
-            text-align: center;
-        }
+        @include component('navigationItem') {
+            width: this('navigationItem', 'size');
+            height: this('navigationItem', 'size');
 
-        //*************************************************************
-        // Owl-Carousel Overwrites
-        //*************************************************************
-
-        .owl-dot {
-            cursor: pointer;
-            cursor: hand;
-            user-select: none;
-            display: inline-block;
-            &:not(:first-child) {
-                margin-left: 0.5em;
-            }
-            &.active {
-                span {
-                    background: this('bullets', 'active-color');
-                }
-            }
-            span {
-                display: block;
+            @if this('navigationItem', 'shape') == 'circle' {
                 border-radius: 50%;
-                height: this('bullets', 'size');
-                width: this('bullets', 'size');
-                background: this('bullets', 'color');
-                transition: this('bullets', 'transition');
+            } @else if this('navigationItem', 'shape') == 'square' {
+                border-radius: 0;
+            }
+
+            @if this('navigationItem', 'disable') {
+                display: none;
+            }
+
+            svg {
+                @include horizontal-center();
+                @include vertical-center();
+                width: this('navigationItem', 'arrow-size');
+                height: this('navigationItem', 'arrow-size');
+            }
+
+            .arrow {
+                fill: this('navigationItem', 'arrow-color');
+            }
+        }
+
+        @include component('pagination') {
+            bottom: auto;
+            margin-top: this('bullet', 'gutter');
+        }
+
+        @include component('bullet') {
+            width: this('bullet', 'size');
+            height: this('bullet', 'size');
+            background-color: this('bullet', 'fill');
+            @if this('bullet', 'disable') {
+                display: none;
+            }
+
+            &.is-selected {
+                background-color: this('bullet', 'active-fill');
+            }
+        }
+
+        //*********************************************************
+        // Modifiers
+        //*********************************************************
+
+        @include modifier('hide-pagination') {
+            @include component('pagination') {
+                visibility: hidden;
+                opacity: 0;
+            }
+        }
+
+        @include modifier('hide-navigation') {
+            @include component('navigationItem') {
+                display: none;
             }
         }
 
