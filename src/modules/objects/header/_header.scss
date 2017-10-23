@@ -26,32 +26,6 @@
         // Settings
         //*********************************************************
 
-        // Header Bar
-        @include option('bar') {
-            @include module {
-                @include component('wrapper') {
-                    display: table;
-                }
-            }
-
-            @include modules(('logo', 'navigation')) {
-                display: table-cell;
-                vertical-align: middle;
-            }
-        }
-
-        // Absolute Position Header
-        @include option('absolute') {
-            @include get-styles(this('absolute'));
-            position: absolute;
-            width: 100%;
-        }
-
-        // Dark Header
-        @include option('dark') {
-            @include get-styles(this('dark'));
-        }
-
         // Fixed Header
         @include option('fixed') {
             position: fixed;
@@ -64,26 +38,6 @@
         // Sticky Header
         @include option('sticky') {
             @include get-styles(this('sticky'));
-
-            @include modifier('fixed') {
-                @include module {
-                    @include component('wrapper') {
-                        @include get-styles(this('sticky', 'wrapper'));
-                    }
-                }
-
-                @include module('logo') {
-                    img {
-                        height: this('sticky', 'logo-height');
-                    }
-                }
-            }
-
-            @include module('logo') {
-                img {
-                    transition: height core('transition');
-                }
-            }
         }
 
         //*********************************************************
@@ -92,19 +46,44 @@
 
         @include component('wrapper') {
             @include _module('container');
-            transition: height core('transition');
+            display: table;
+        }
+        
+        @include components(('logo', 'social-links')) {
+            display: table-cell;
+            vertical-align: middle;
         }
 
-        @include module('sideNav') {
-            @include component('toggle') {
-                @include vertical-center();
-                right: 0;
+        @include component('logo') {
+            font-family: 'aaaiight_fatregular';
+            
+            @include component('primary') {
+                color: white;
+            }
+                        
+            @include component('secondary') {
+                color: color('brand', 'brand-1');
+            }
+
+            a {
+                text-decoration: none;
             }
         }
+        
+        @include component('social-links') {
+            @include _module('list', ('reset', 'inline'), false);
+            text-align: right;
 
-        // For JS - will be applied to body element
-        @include component('isFixed') {
-            padding-top: this('sticky', 'wrapper', 'height');
+            @include component('item') {
+                @include _module('button', (
+                    'brand-1-light', 'circle', 'icon', 'border', 'size-3'
+                ));
+
+                &:hover {
+                    background: transparent;
+                    border-color: currentColor;
+                }
+            }
         }
 
         //*********************************************************

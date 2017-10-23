@@ -18,7 +18,8 @@ module.exports = function clean(custom) {
         assets: [
             'styles', 
             'scripts', 
-            'images'
+            'images',
+            'fonts'
         ],
         nuke: false
     }, custom);
@@ -43,6 +44,10 @@ module.exports = function clean(custom) {
 
         if (options.assets.includes('images')) {
             tasks.push(`clean:appImages`);
+        }
+
+        if (options.assets.includes('fonts')) {
+            tasks.push(`clean:appFonts`);
         }
     }
 

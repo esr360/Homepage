@@ -22,6 +22,15 @@ module.exports = function(config) {
             }]
         },
 
+        appFonts: {
+            files: [{
+                cwd: config.project.source[1].fonts,
+                src: '**/*',
+                dest: config.project.dist[1].fonts,
+                expand: true
+            }]
+        },
+
         appImages: {
             files: [
                 {

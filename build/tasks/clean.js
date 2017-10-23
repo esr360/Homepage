@@ -7,9 +7,13 @@ module.exports = function(config) {
         dist: {
             src: config.project.dist[0]
         },
-
+        
         appImages: {
             src: config.project.dist[1].images
+        },
+                
+        appFonts: {
+            src: config.project.dist[1].fonts
         },
 
         devAppStyles: [

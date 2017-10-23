@@ -22,6 +22,7 @@ module.exports = function compile(custom) {
             'styles', 
             'scripts', 
             'images',
+            'fonts'
         ],
         lint: true,
         test: true,
@@ -79,6 +80,10 @@ module.exports = function compile(custom) {
 
         if (options.assets.includes('images')) {
             tasks.push('copy:appImages');
+        }
+
+        if (options.assets.includes('fonts')) {
+            tasks.push('copy:appFonts');
         }
     }
 

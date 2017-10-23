@@ -29,6 +29,7 @@ module.exports = function config() {
     this.project = {
         source: [      'src/', {
             images:    'src/images/',
+            fonts:     'src/fonts/',
             scripts:   'src/modules/',
             styles:    'src/modules/',
             theme:     'src/themes/<%=theme%>/',
@@ -36,6 +37,7 @@ module.exports = function config() {
         }],
         dist: [        'dist/', {
             images:    'dist/assets/images/',
+            fonts:     'dist/assets/fonts/',
             scripts:   'dist/assets/scripts/',
             styles:    'dist/assets/styles/',
             theme:     'dist/assets/themes/<%=theme%>/',

@@ -50,12 +50,20 @@
                 }
             }
 
+            @font-face {
+                font-family: 'aaaiight_fatregular';
+                src: url('../../fonts/aaaiight-fat/aaaiight-fat-webfont.woff2') format('woff2'),
+                     url('../../fonts/aaaiight-fat/aaaiight-fat-webfont.woff')  format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
             //*****************************************************
             // Styles
             //*****************************************************
 
             // Links
-            a:not([class*='button']) {
+            @include module('link') {
                 transition: color 0.4s;
                 color: this('colors', 'link');
                 text-decoration: none;

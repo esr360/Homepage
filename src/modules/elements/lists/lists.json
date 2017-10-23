@@ -1,7 +1,7 @@
 {
     "lists": {
         "name": "list",
-        "inline-spacing": "1em",
+        "inline-spacing": "0.5em",
         "arrow-icon": "'\\f138'",
         "arrow-color": ["#COLOR", "brand", "brand-1"]
     }

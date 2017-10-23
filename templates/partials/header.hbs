@@ -1,37 +1,33 @@
 <header class="header{{#each header.modifiers}}-{{.}}{{/each}}">
     <div class="header_wrapper">
-        <div class="logo">
-            <a href="{{assets}}" alt="One-Nexus logo">
-                <img src="{{assets}}assets/images/logo-light.png" alt="One-Nexus Logo">
+        <div class="header_logo">
+            <a href="{{assets}}" alt="Edmund Reed's Homepage">
+                <span class="header_logo_primary">Edmund</span>
+                <span class="header_logo_secondary">Reed</span> 
             </a>
         </div>
-        <nav class="navigation min-break-3">
-            <ul>
-                <li>
-                    <a href="#">Link 1</a>
-                    <ul>
-                        <li>
-                            <a href="#">Link 1</a>
-                            <ul>
-                                <li><a href="#">Link 3</a></li>
-                                <li>
-                                    <a href="#">Link 1</a>
-                                    <ul>
-                                        <li><a href="#">Link 2</a></li>
-                                        <li><a href="#">Link 3</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Link 3</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-            </ul>
-        </nav>
-        <div class="sideNav_toggle button-icon-primary max-break-3">
-            <i class="fa fa-bars"></i>
-        </div>
+
+        <ul class="header_social-links">
+            <li>
+                <a target="blank" href="https://twitter.com/ESR360" class="header_social-links_item">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a target="blank" href="https://github.com/esr360" class="header_social-links_item">
+                    <i class="fa fa-github"></i>
+                </a>
+            </li>
+            <li>
+                <a target="blank" href="https://codepen.io/esr360/" class="header_social-links_item">
+                    <i class="fa fa-codepen"></i>
+                </a>
+            </li>
+            <li>
+                <a target="blank" href="https://www.linkedin.com/in/esr360/" class="header_social-links_item">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 </header>

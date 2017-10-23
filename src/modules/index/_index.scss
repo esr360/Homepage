@@ -1,0 +1,32 @@
+@import '../../modules/index/index.json';
+/// Index
+///
+/// @param {map} $custom - where custom config will be passed
+@mixin index($custom: custom('index')) {
+
+    // Configuration
+    $index: config($index, $custom);
+
+    //*************************************************************
+    // Module
+    //*************************************************************
+
+    @include module {
+
+        //*********************************************************
+        // Core Styles
+        //*********************************************************
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center -10%;
+
+        //*********************************************************
+        // Custom Content
+        //*********************************************************
+
+        @content;
+
+    } // module
+
+} // @mixin accordions

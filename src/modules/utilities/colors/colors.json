@@ -1,9 +1,9 @@
 {
     "colors": {
         "brand": {
-            "brand-1": "#2E3882",
-            "brand-2": "#06d2ff",
-            "brand-3": "#04CEC0"
+            "brand-1": "#019ee1",
+            "brand-1-dark": "#000e2b",
+            "brand-1-light": "#9dd5e6"
         },
         "alert":{
             "error": "#D9434E",
