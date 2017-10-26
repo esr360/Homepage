@@ -1,11 +1,27 @@
 {
     "typography": {
         "name": "typography",
-        "typefaces": {
-            "primary": ["Raleway", "100,300,700,900"],
-            "secondary": ["Lato", "300,700"]
+        "font-helper-classes": true,
+        "fonts": {
+            "primary": {
+                "type": "google-font",
+                "family": "Raleway",
+                "styles": ["100,300,700,900"]
+            },
+            "secondary": {
+                "type": "google-font",
+                "family": "Lato",
+                "styles": ["300,700"]
+            },
+            "brand-1": {
+                "type": "asset",
+                "family": "aaaiight"
+            },
+            "brand-2": {
+                "type": "asset",
+                "family": "cyberpnuk2"
+            }
         },
-        "import-fonts": true,
         "colors": {
             "base": ["#COLOR", "greyscale", "grey-4"],
             "heading": ["#COLOR", "greyscale", "grey-5"],

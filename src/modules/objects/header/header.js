@@ -26,7 +26,7 @@ export function header(els = 'header', custom = {}) {
             return toggleStickyHeader({
                 type: (window.scrollY > stickyOffset) ? 'stick' : 'unstick', 
                 target: el,
-                navigation: app.Synergy(options.navigation).query[0],
+                navigation: options.navigation ? app.Synergy(options.navigation).query[0] : '',
                 overlay: options.overlay,
                 dropdownShowOverlay: exports.dropdownShowOverlay,
                 dropdownHideOverlay: exports.dropdownHideOverlay,

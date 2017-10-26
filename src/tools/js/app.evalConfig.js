@@ -71,7 +71,7 @@ function evalValue(value) {
             }
 
             else if (FUNC_NAME === 'typeface') {
-                value = app.config.typography.typefaces[PARAMS[0]];
+                value = app.config.typography.fonts[PARAMS[0]];
             }
 
             else if (FUNC_NAME === 'font-size') {

@@ -20,7 +20,30 @@
         // Core Styles
         //*********************************************************
 
+        background: linear-gradient(rgba(black, 0), rgba(black, 0));
+        transition: background core('transition');
         overflow: visible;
+        position: absolute;
+        top: 1em;
+        z-index: 2;
+        width: 100%;
+
+        &:after {
+            opacity: 0;
+            transition: core('transition');
+            content: '';
+            height: 7px;
+            position: absolute;
+            bottom: -7px;
+            width: 100%;
+            background: linear-gradient(to right, 
+                #f05878, #e5388a, #9e33e6, #1d76e3, #04caf5
+            );
+        }
+        
+        a {
+            text-decoration: none;
+        }
 
         //*********************************************************
         // Settings
@@ -35,9 +58,15 @@
             margin-top: 0;
         }
 
-        // Sticky Header
         @include option('sticky') {
-            @include get-styles(this('sticky'));
+            @include modifier('fixed') {
+                background: linear-gradient(color('greyscale', 'grey-5'), color('greyscale', 'grey-6'));
+                font-size: font-size('size-2');
+                top: 0;
+                &:after {
+                    opacity: 1;
+                }
+            }
         }
 
         //*********************************************************
@@ -55,18 +84,14 @@
         }
 
         @include component('logo') {
-            font-family: 'aaaiight_fatregular';
-            
-            @include component('primary') {
-                color: white;
+            transition: core('transition');
+
+            @include component('forename') {
+                color: color('greyscale', white);
             }
                         
-            @include component('secondary') {
+            @include component('surname') {
                 color: color('brand', 'brand-1');
-            }
-
-            a {
-                text-decoration: none;
             }
         }
         

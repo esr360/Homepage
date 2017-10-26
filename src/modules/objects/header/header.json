@@ -7,13 +7,12 @@
             "height": "85px"
         },
         "_logo": {
-            "font-size": "2em"
+            "font-size": "2em",
+            "font-family": "aaaiight"
         },
         "fixed": false,
         "sticky": {
-            "enabled": false,
-            "background": ["#COLOR", "greyscale", "grey-6"],
-            "font-size": ["#FONT-SIZE", "size-2"]
+            "enabled": false
         }
     }
 }
