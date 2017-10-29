@@ -3,7 +3,8 @@
         "brand": {
             "brand-1": "#019ee1",
             "brand-1-dark": "#000e2b",
-            "brand-1-light": "#9dd5e6"
+            "brand-1-light": "#9dd5e6",
+            "brand-2": "#FB5577"
         },
         "alert":{
             "error": "#D9434E",
