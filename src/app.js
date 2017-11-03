@@ -20,8 +20,9 @@ export const config = {};
 import Synergy    from 'Synergy';
 import deepextend from 'deep-extend';
 import Flickity   from 'flickity';
+import Tilt       from 'tilt.js';
 
-export { Synergy, deepextend, Flickity };
+export { Synergy, deepextend, Flickity, Tilt };
 
 // Modules
 //*****************************************************************
@@ -63,6 +64,7 @@ export {
 
 import { custom          } from './tools/js/app.custom';
 import { evalConfig      } from './tools/js/app.evalConfig';
+import { hrefTarget      } from './tools/js/app.hrefTarget';
 import { inViewport      } from './tools/js/app.inViewport';
 import { isValidSelector } from './tools/js/app.isValidSelector';
 import { media           } from './tools/js/app.media';
@@ -72,14 +74,14 @@ import { smoothScroll    } from './tools/js/app.smoothScroll';
 import { scrollSpy       } from './tools/js/app.scrollSpy';
 
 export { 
-    custom, evalConfig, inViewport, isValidSelector, media, parents, 
-    parse, smoothScroll, scrollSpy
+    custom, evalConfig, hrefTarget, inViewport, isValidSelector, 
+    media, parents, parse, smoothScroll, scrollSpy
 };
 
 // Attach `app` to the Window object
 window.APPUI = window.APPUI || app;
 
-// Global Methods
+// Global Methods/Functions
 //*****************************************************************
 
 Element.prototype.component = function(component, set) {
@@ -93,3 +95,5 @@ Element.prototype.modifier = function(modifier, set) {
 Element.prototype.parents = function(selector) {
     return parents(this, selector);
 };
+
+hrefTarget();

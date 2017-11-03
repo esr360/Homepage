@@ -22,13 +22,12 @@ header:
             <p class="i8_intro_content">I design and develop websites, <a target="blank" href="https://themeforest.net/user/skyux/portfolio">themes</a> and front-end tools to help make the web a better place. I like to <a target="blank" href="https://medium.com/@ESR360">write</a> about my experiments and experiences and share my results on <a href="https://github.com/esr360/">Github</a>. I currently work for <a target="blank" href="https://www.valtech.com.au/" >Valtech Australia & New Zealand</a>.</p>
 
             <div class="i8_macbook">
+                <img class="i8_macbook_browser" src="assets/images/safari-browser.svg" />
                 <a target="blank" href="http://onenexus.io" class="i8_macbook_screen">
                     <img src="assets/images/one-nexus-preview.png" />
                 </a>
                 <img class="i8_macbook_monitor" src="assets/images/desktop-screen.png" />
             </div>
-
-            <p class="i8_intro_source"><a target="blank" href="http://onenexus.io">One-Nexus</a> - a toolkit for building modular front-end user-interfaces</p>
         </div>
     </div>
 </section>
@@ -40,9 +39,10 @@ header:
             <div class="span-4">
                 <div class="i8_bubble">
                     <h3 class="heading-size-4 object-small">Responsive Web Design</h3>
-                    <p class="object-small">Amongst other things, I specialise in mobile and responsive web design, ensuring the end product is just as elegant at every resolution.</p>
+                    <p class="object-small">Amongst other things, I specialise in mobile and responsive web design - this website is built using my own custom responsive grid system.</p>
                     <p class="object-small">Checkout <b><a target="blank" href="https://github.com/esr360/Kayzen-GS">Kayzen-GS</a></b> - a responsive grid system</p>
                 </div>
+                <h3 class="i8_latest-article_head">Latest Blog post</h3>
                 <div class="i8_latest-article">
                     <div class="i8_latest-article_post-meta">
                         <div class="i8_latest-article_avatar">
@@ -60,6 +60,7 @@ header:
             </div>
             <div class="span-4">
                 <div class="i8_iphone">
+                    <img class="i8_iphone_browser" src="assets/images/iphone-browser.png" />
                     <a target="blank" href="http://onenexus.io" class="i8_iphone_screen">
                         <img src="assets/images/one-nexus-mobile-preview.png" />
                     </a>
@@ -70,27 +71,109 @@ header:
                 <p class="i8_ribbon_title">Senior UI Consultant @Valtech</p>
                 <p class="i8_ribbon_subTitle">Australia & New Zealand</p>
                 <br />
-                <h3 class="heading-size-5">Open-Source Projects:</h3>
+                <h3 class="heading-size-5"><i class="fa fa-github-alt"></i> Open-Source Projects:</h3>
                 <div class="i8_projects">
-                    <a target="blank" href="#TODO" class="i8_projects_item">
+                    <a target="blank" href="https://github.com/esr360/Kayzen-GS" class="i8_projects_item">
                         <img src="assets/images/kayzen-gs-logo-light.png" />
                         <span>A responsive grid system</span>
                     </a>
-                    <a target="blank" href="#TODO" class="i8_projects_item">
+                    <a target="blank" href="https://github.com/esr360/One-Nexus" class="i8_projects_item">
                         <img src="assets/images/one-nexus-logo-light.png" />
-                        <span>A responsive grid system</span>
+                        <span>A modular UI toolkit</span>
                     </a>
-                    <a target="blank" href="#TODO" class="i8_projects_item">
+                    <a target="blank" href="https://github.com/esr360/Synergy" class="i8_projects_item">
                         <img src="assets/images/synergy-logo-light.png" />
-                        <span>A responsive grid system</span>
+                        <span>A framework for creating UI components</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
     
-    <img src="assets/images/foreground.svg" />
+    <img class="i8_ribbon_foreground" src="assets/images/foreground.svg" />
 
 </section>
 
-<section>Lorem Ipsum</section>
+<section class="i8_design">
+    <div class="container-small">
+        <div 
+            data-tilt 
+            data-tilt-max="30"
+            data-tilt-perspective="1200"
+            class="i8_dribbble row-flow row-breathe" 
+            id="dribbble_shots"
+        >
+        </div>
+    </div>
+</section>
+
+<section class="i8_noah">
+    <div class="container">
+        <div class="row">
+            <div class="span-4">
+                <h3 class="heading-size-6">
+                    Noah: a boilerplate for compiling front-end web apps using NPM build scripts
+                </h3>
+                <ul class="list-clear">
+                    <li>Favours API usage over CLI wrappers</li>
+                    <li>CSS/Sass lint | autoprefix | compile</li>
+                    <li>JS concatenate | uglify | lint | unit test</li>
+                    <li>Assemble/Handlebars</li>
+                    <li>Browsersync + watching & live reload</li>
+                </ul>
+                <a target="blank" href="https://github.com/esr360/Noah" class="i8_noah_cta">View on Github</a> 
+                <span class="spacer">or</span>
+                <a target="blank" href="medium.com/valtech-design/using-npm-scripts-to-run-node-sass-443b031b02a" class="link">Learn More</a>
+            </div>
+        </div>
+    </div>
+    <img class="i8_noah_clouds" src="assets/images/clouds.png" />
+    <img class="i8_noah_ark" src="assets/images/noah.png" />
+</section>
+
+<section class="i8_follow">
+    <div class="container">
+        <div class="row">
+            <div class="span-4">
+                <h3 class="i8_follow_title">Follow me on social media</h3>
+                <p class="i8_follow_text">Keep up-to-date with all my latest blog posts and open-source projects by following me on social media:</p>
+                <div class="button_group">
+                    <a target="blank" href="#TODO" class="button-icon-size-5-twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a target="blank" href="#TODO" class="button-icon-size-5-github">
+                        <i class="fa fa-github-alt"></i>
+                    </a>
+                    <a target="blank" href="#TODO" class="button-icon-size-5-medium">
+                        <i class="fa fa-medium"></i>
+                    </a>
+                    <a target="blank" href="#TODO" class="button-icon-size-5-dribbble">
+                        <i class="fa fa-dribbble"></i>
+                    </a>
+                    <a target="blank" href="#TODO" class="button-icon-size-5-linkedin">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="span-8">
+                <div class="i8_devices">
+                    <div class="i8_devices_desktop">
+                        <img class="i8_devices_desktop_monitor" src="assets/images/desktop-outline.svg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="i8_footer">
+    <div class="container">
+        <div class="row">
+            <div class="span-3">
+                <p>This website is built using <a class="link" target="blank" href="#TODO">One-Nexus</a>; the source code is available on <a class="link" target="blank" href="#TODO">Github</a>.</p>
+
+                <p>I am available for remote custom UI design/development work - please <a class="link" target="blank" href="#TODO">get in touch</a> if you would like to talk.</p>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -19,9 +19,13 @@
         width: this('base-width');
         max-width: this('max-width');
         margin: 0 auto;
-
+        
         @include modifier('large') {
             max-width: this('large-width');
+        }
+                
+        @include modifier('small') {
+            max-width: this('small-width');
         }
 
         @include modifier('section') {
