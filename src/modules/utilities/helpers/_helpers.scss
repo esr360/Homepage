@@ -140,7 +140,7 @@
     // Show only when resolution is at most X
     @each $bp, $width in map-get($grid, 'breakpoints') {
         .max-#{$bp} {
-            @media (min-width: $width) {
+            @media (min-width: $width + 1px) {
                 display: none !important;
             }
         }

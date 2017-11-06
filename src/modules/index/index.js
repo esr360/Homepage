@@ -16,16 +16,18 @@ export function index(els = 'i8', custom = {}) {
     const DRIBBBLE_TOKEN = '4526e22a9e300d869d7150623fb27351bd4e80aaafa2cebed0429e5a6e395e22';
 
     app.Synergy(els, (el, options) => {    
-    
+        
+        // Populate Dribbble shots
         $.ajax({
             type: 'GET',
             url: 'https://api.dribbble.com/v1/users/esr360/shots/?access_token=' + DRIBBBLE_TOKEN,
-            success: response => handleDribbbleShots(response, '#dribbble_shots'),
+            success: response => this.handleDribbbleShots(response, '#dribbble_shots'),
             error: response => {
                 console.log('Error: ' + response);
             }
         });
 
+        // Parallax
         $(window).on('scroll', function() {
             var scrollTop = $(this).scrollTop();
 
@@ -73,21 +75,23 @@ export function index(els = 'i8', custom = {}) {
             }
         });
 
-        function handleDribbbleShots(shots, target) {
-            if(!(target instanceof HTMLElement)) {
-                target = document.querySelector(target);
-            }
+    }, defaults, custom, app.evalConfig);
 
-            shots.forEach(shot => target.insertAdjacentHTML('beforeend', 
-                `<a target="blank" href="${shot.html_url}" class="i8_dribbble_shot span-3">
-                    <img class="" src="${shot.images.normal}" />
-                </a>`
-            ));
-
-            app.Tilt();
+    this.handleDribbbleShots = function(shots, target) {
+        if(!(target instanceof HTMLElement)) {
+            target = document.querySelector(target);
         }
 
-    }, defaults, custom, app.evalConfig);
+        var shotColumnClass = 'span-3 break-3-third break-2-half break-1-full';
+
+        shots.forEach(shot => target.insertAdjacentHTML('beforeend', 
+            `<a target="blank" href="${shot.html_url}" class="i8_dribbble_shot ${shotColumnClass}">
+                <img class="" src="${shot.images.normal}" />
+            </a>`
+        ));
+
+        if (app.media('min-width', 'break-4', app)) app.Tilt();  
+    }
 
     app.config.index = app.parse(defaults.index, custom);
 
