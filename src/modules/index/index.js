@@ -14,17 +14,14 @@ export function index(els = 'i8', custom = {}) {
     custom = app.custom('index', custom);
 
     const DRIBBBLE_TOKEN = '4526e22a9e300d869d7150623fb27351bd4e80aaafa2cebed0429e5a6e395e22';
+    const NEW_RANGE = Date.now() - 2592000000;
 
     app.Synergy(els, (el, options) => {    
-        
         // Populate Dribbble shots
         $.ajax({
             type: 'GET',
             url: 'https://api.dribbble.com/v1/users/esr360/shots/?access_token=' + DRIBBBLE_TOKEN,
-            success: response => this.handleDribbbleShots(response, '#dribbble_shots'),
-            error: response => {
-                console.log('Error: ' + response);
-            }
+            success: response => this.handleDribbbleShots(response, '#dribbble_shots')
         });
 
         // Parallax
@@ -74,21 +71,35 @@ export function index(els = 'i8', custom = {}) {
                 }
             }
         });
-
     }, defaults, custom, app.evalConfig);
 
-    this.handleDribbbleShots = function(shots, target) {
+    this.handleDribbbleShots = (shots, target) => {
+        // ensure `target` is an HTMLElement
         if(!(target instanceof HTMLElement)) {
             target = document.querySelector(target);
         }
 
-        var shotColumnClass = 'span-3 break-3-third break-2-half break-1-full';
+        const header_icon = $('.header_social-links_item[title=Dribbble]');
 
-        shots.forEach(shot => target.insertAdjacentHTML('beforeend', 
-            `<a target="blank" href="${shot.html_url}" class="i8_dribbble_shot ${shotColumnClass}">
-                <img class="" src="${shot.images.normal}" />
-            </a>`
-        ));
+        let newPosts = 0;
+        
+        shots.forEach(shot => {
+            const isNew = Date.parse(shot.created_at) > NEW_RANGE;
+            const shotColumnClass = `span-3 break-3-third break-2-half break-1-full${isNew ? ' new' : ''}`;
+
+            if (isNew) newPosts++;
+
+            target.insertAdjacentHTML('beforeend', 
+                `<a target="blank" href="${shot.html_url}" class="i8_dribbble_shot ${shotColumnClass}">
+                    <img class="" src="${shot.images.normal}" />
+                </a>`
+            );
+        });
+
+        if (newPosts) {
+            header_icon.addClass('new');
+            header_icon.attr('data-new-posts', newPosts);
+        }
 
         if (app.media('min-width', 'break-4', app)) app.Tilt();  
     }

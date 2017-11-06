@@ -151,6 +151,16 @@
         
         @include component('macbook') {
             position: relative;
+            &:after {
+                content: '';
+                background: url('#{$asset-path}/images/cursor.png');
+                background-size: cover;
+                height: 16px;
+                width: 16px;
+                position: absolute;
+                top: 30%;
+                left: 65%;
+            }
             @include component('monitor') {
                 position: relative;
                 pointer-events: none;
@@ -199,7 +209,6 @@
         }
 
         @include component('bubble') {
-            background: url('#{$asset-path}/images/speech-bubble.png');
             background: url('#{$asset-path}/images/i8_bubble_alpha.svg');
             background-size: 100% 100%;
             background-repeat: no-repeat;

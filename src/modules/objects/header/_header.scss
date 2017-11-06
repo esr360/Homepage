@@ -108,6 +108,26 @@
                     background: transparent;
                     border-color: currentColor;
                 }
+
+                &.new {
+                    border-color: color('brand', 'brand-1');
+                    color: color('greyscale', white);
+                    position: relative;
+                    &:before {
+                        content: attr(data-new-posts);
+                        padding: 1px 4px 3px;
+                        background: color('alert', 'error');
+                        position: absolute;
+                        top: -0.3em;
+                        right: -0.3em;
+                        font-size: 0.8em;
+                        border-radius: 0.25em;
+                        color: white;
+                    }
+                    .fa {
+                        color: color('brand', 'brand-3');
+                    }
+                }
             }
         }
 
