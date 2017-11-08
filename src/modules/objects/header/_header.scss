@@ -97,7 +97,12 @@
         
         @include component('social-links') {
             @include _module('list', ('reset', 'inline'), false);
+
             text-align: right;
+
+            li {
+                position: relative;
+            }
 
             @include component('item') {
                 @include _module('button', (
@@ -115,7 +120,6 @@
                     position: relative;
                     &:before {
                         content: attr(data-new-posts);
-                        padding: 1px 4px 3px;
                         background: color('alert', 'error');
                         position: absolute;
                         top: -0.3em;
@@ -123,12 +127,25 @@
                         font-size: 0.8em;
                         border-radius: 0.25em;
                         color: white;
+                        height: 1.5em;
+                        width: 1.15em;
+                        line-height: 1.4;
                     }
                     .fa {
                         color: color('brand', 'brand-3');
                     }
                 }
             }
+        }
+
+        @include component('newSocial') {
+            position: absolute;
+            background: color('greyscale', 'grey-1');
+            left: 0;
+            right: 0;
+            display: block;
+            min-width: 200px;
+            transform: translateX(-50%);
         }
 
         //*********************************************************

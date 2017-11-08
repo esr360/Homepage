@@ -44,7 +44,7 @@ header:
                     <p class="object-small">Amongst other things, I specialise in mobile and responsive web design - this website is built using my own custom responsive grid system.</p>
                     <p class="object-small">Checkout <b><a target="blank" href="https://github.com/esr360/Kayzen-GS">Kayzen-GS</a></b> - a responsive grid system</p>
                 </div>
-                <h3 class="i8_latest-article_head">Latest Blog post</h3>
+                <h3 class="i8_latest-article_head">Latest Blog Post</h3>
                 <div class="i8_latest-article">
                     <div class="i8_latest-article_post-meta">
                         <div class="i8_latest-article_avatar">
@@ -106,6 +106,15 @@ header:
             class="i8_dribbble row-flow row-breathe" 
             id="dribbble_shots"
         >
+        </div>
+        <div id="i8_dribbble_shot_template" class="hidden">
+            <a 
+                target="blank" 
+                href="${shot.html_url}" 
+                class="i8_dribbble_shot span-3 break-3-third break-2-half break-1-full"
+            >
+                <img src="${shot.images.normal}" />
+            </a>
         </div>
     </div>
 </section>
