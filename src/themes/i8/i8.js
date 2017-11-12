@@ -40,6 +40,7 @@ app.header();
 app.preloader();
 app.scrollTop();
 app.sideNav();
+app.socialDropdown();
 
 ///************************************************************
 /// Index

@@ -1,0 +1,107 @@
+@import '../../modules/objects/social-dropdown/social-dropdown.json';
+/// Social Dropdown Menu
+///
+/// @access public
+/// @group objects
+///
+/// @param {map} $custom - where custom config will be passed
+@mixin socialDropdown($custom: custom('socialDropdown')) {
+
+    // Config
+    $socialDropdown: config($socialDropdown, $custom);
+
+    //*************************************************************
+    // Module
+    //*************************************************************
+
+    @include module {
+
+        @include _module('list', ('reset'), false);
+
+        opacity: 0;
+        visibility: hidden;
+        transition: core('transition');
+        text-align: left;
+        position: absolute;
+        background: color('greyscale', 'grey-1');
+        top: 3.5em;
+        z-index: 2;
+        min-width: 250px;
+        transform: translateX(-50%);
+        box-shadow: 1px 1px 10px rgba(black, 0.3);
+        display: inline-block;
+        padding: 0.6em;
+        transition-delay: core('transition');
+
+        li:hover & {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
+
+        .has-new & {
+            @include triangle((
+                'position': 'bottom',
+                'color': color('greyscale', 'grey-1'),
+                'size': font-size('size-2')
+            ));
+        }
+
+        @include component('tag') {
+            position: absolute;
+            font-size: font-size('size-1');
+            right: 1em;
+            color: color('greyscale', white);
+            background: color('brand', 'brand-1');
+            padding: 0.3em 0.5em;
+            border-radius: 0.25em;
+            @include modifier('new-repo') {
+                background: color('alert', 'error');
+            }
+            @include modifier('new-shot') {
+                background: color('social', 'dribbble');
+            }
+        }
+
+        @include component('title') {
+            margin-top: 0;
+            margin-bottom: 0.6em;
+            color: color('greyscale', 'grey-5'),
+        }
+
+        @include component('link') {
+            color: inherit;
+            padding: 1em;
+            display: block;
+            &:hover {
+                background: rgba(black, 0.1);
+            }
+        }
+
+        @include component('description') {
+            font-size: font-size('size-2');
+            margin: 0;
+        }
+
+        @include component('wrap') {
+            text-align: center;
+        }
+
+        //*********************************************************
+        // Custom Content
+        //*********************************************************
+
+        @content;
+
+    } // module
+    
+    // hide tooltip when appropriate
+    @include module('tooltip') {
+        @include component('wrapper') {
+            .has-new & {
+                display: none;
+            }
+        }
+    }
+
+} // @mixin socialDropdown

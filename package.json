@@ -10,6 +10,7 @@
     "deep-extend": "^0.5.0",
     "flickity": "^2.0.8",
     "normalize-scss": "^7.0.0",
+    "pubsub-js": "^1.5.7",
     "spinners": "^1.2.2",
     "tilt.js": "^1.2.0"
   },

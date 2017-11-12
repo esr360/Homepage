@@ -104,7 +104,7 @@
                 position: relative;
             }
 
-            @include component('item') {
+            @include component('link') {
                 @include _module('button', (
                     'brand-1-light', 'circle', 'icon', 'border', 'size-3'
                 ));
@@ -136,16 +136,6 @@
                     }
                 }
             }
-        }
-
-        @include component('newSocial') {
-            position: absolute;
-            background: color('greyscale', 'grey-1');
-            left: 0;
-            right: 0;
-            display: block;
-            min-width: 200px;
-            transform: translateX(-50%);
         }
 
         //*********************************************************
