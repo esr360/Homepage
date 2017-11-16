@@ -7,7 +7,7 @@ import defaults from './social-dropdown.json';
  * @access public
  * 
  * @param {(String|HTMLElement|NodeList)} els
- * @param {Object} custom
+ * @param {Object} custom 
  */
 export function socialDropdown(els = document.body, custom = {}) {
 

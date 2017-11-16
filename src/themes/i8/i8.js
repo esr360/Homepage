@@ -35,6 +35,7 @@ app.tooltips();
 /// Objects
 ///************************************************************
 
+app.envatoBadge();
 app.googleMap();
 app.header();
 app.preloader();

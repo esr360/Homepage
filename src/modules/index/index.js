@@ -7,26 +7,15 @@ import defaults from './index.json';
  * @access public
  * 
  * @param {(String|HTMLElement|NodeList)} els
- * @param {Object} custom
+ * @param {Object} custom 
  */
 export function index(els = 'i8', custom = {}) {
 
     custom = app.custom('index', custom);
 
-    const NEW_RANGE = Date.now() - 2592000000;
-
     app.Synergy(els, (el, options) => {
-        // Fetch Dribbble shots
-        $.ajax('https://api.dribbble.com/v1/users/esr360/shots/?access_token=' + options['dribbble-token'], {
-            success: response => app.publish('DRIBBBLE_RESPONSE_SUCCESS', response)
-        });
-        
-        // Fech Github Repos
-        $.ajax('https://api.github.com/users/esr360/repos', {
-            success: response => app.publish('GITHUB_RESPONSE_SUCCESS', response)
-        });
 
-        // Parallax
+        // Parallax/Scroll Effects
         $(window).on('scroll', function() {
             var scrollTop = $(this).scrollTop();
 
@@ -43,6 +32,18 @@ export function index(els = 'i8', custom = {}) {
                     $('.i8_intro').css({
                         'background-position-y': (0.2 * scrollTop) - 200 + 'px'
                     });
+                }
+                
+                if (app.inViewport({target: document.querySelector('.i8_design'), coverage: 'middle'})) {
+                    document.querySelector('.i8_design').classList.remove('inactive');
+                }
+
+                if (app.inViewport({target: document.querySelector('.i8_noah'), coverage: 'middle'})) {
+                    document.querySelector('.i8_noah').classList.remove('inactive');
+                }
+
+                if (app.inViewport({target: document.querySelector('.i8_follow'), coverage: 'middle'})) {
+                    document.querySelector('.i8_follow').classList.remove('inactive');
                 }
 
                 if (app.inViewport({target: document.querySelector('.i8_macbook'), coverage: 'top'})) {
@@ -71,6 +72,7 @@ export function index(els = 'i8', custom = {}) {
                 }
             }
         });
+
     }, defaults, custom, app.evalConfig);
 
     app.config.index = app.parse(defaults.index, custom);

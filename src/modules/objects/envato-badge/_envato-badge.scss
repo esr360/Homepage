@@ -1,0 +1,24 @@
+@import '../../modules/objects/envato-badge/envato-badge.json';
+/// Index
+///
+/// @param {map} $custom - where custom config will be passed
+@mixin envato-badge($custom: custom('envato-badge')) {
+
+    // Configuration
+    $envato-badge: config($envato-badge, $custom);
+
+    //*************************************************************
+    // Module
+    //*************************************************************
+
+    @include module {
+
+        //*********************************************************
+        // Custom Content
+        //*********************************************************
+
+        @content;
+
+    } // module
+
+} // @mixin

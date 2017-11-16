@@ -2,5 +2,7 @@
     "asset-path": "'../..'",
     "sass-config-parser": "eval-config",
     "component-glue": "'_'",
-    "modifier-glue": "'-'"
+    "modifier-glue": "'-'",
+    "dribbble-token": "4526e22a9e300d869d7150623fb27351bd4e80aaafa2cebed0429e5a6e395e22",
+    "envato-token": "rpvKJYi5ncvNdGhepLdGuT5N7uVMLZYg"
 }
