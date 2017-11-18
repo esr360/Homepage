@@ -499,64 +499,6 @@
             }
         }
 
-        @include component('envato') {
-            border: 1px solid rgba(white, 0.6);
-            padding: 1em;
-            position: relative;
-            @include component('avatar') {
-                display: inline-block;
-                width: 60px;
-            }
-            @include component('data') {
-                position: absolute;
-                top: 1em;
-                right: 1em;
-            }
-            @include component('items') {
-                margin-bottom: 0.5em;
-                display: flex;
-                @include component('label') {
-                    margin-right: 0.5em;
-                }
-            }
-            @include component('badges') {
-                margin-top: 1rem;
-            }
-            @include component('badge') {
-                width: 8%;
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 3px;
-            }
-            @include component('logo') {
-                width: 23%;
-                position: absolute;
-                bottom: 1em;
-                right: 1em;
-            }
-            @include component('star') {
-                @include modifier('fill') {
-                    color: #84B349;
-                }
-            }
-            @include component('tag') {
-                background: #84B349;
-                color: color('greyscale', white);
-                padding: 2px 4px;
-                font-size: font-size('size-2');
-                border-radius: 0.15em;
-                font-family: typeface('secondary');
-                margin-left: auto;
-            }
-            @include component('user') {
-                @include _module('heading', ('size-6', 'light'));
-                color: color('greyscale', white);
-            }
-            @include component('sales') {
-                display: flex;
-            }
-        }
-
         @include component('footer') {
             position: relative;
             &:before {
@@ -641,9 +583,9 @@
     }
      
     @keyframes vs-code {
-        0%   { transform: translateY(0);     }   
+        0%   { transform: translateY(0);    }   
         50%  { transform: translateY(-75%); }
-        100% { transform: translateY(0);     }
+        100% { transform: translateY(0);    }
     }
 
 } // @mixin accordions

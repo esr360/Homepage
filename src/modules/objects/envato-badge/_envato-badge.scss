@@ -13,6 +13,86 @@
 
     @include module {
 
+        min-width: 300px;
+        border: 1px solid rgba(white, 0.6);
+        padding: 1em;
+        position: relative;
+
+        @include components(('top', 'bottom')) {
+            display: flex;
+        }
+
+        @include component('avatar') {
+            width: 50px;
+            height: 50px;
+        }
+
+        @include component('user') {
+            margin-left: 1em;
+        }
+
+        @include component('name') {
+            @include _module('heading', ('size-6', 'light'));
+
+            color: color('greyscale', white);
+            margin-bottom: 0.5rem;
+        }
+        
+        @include component('star') {
+            @include modifier('fill') {
+                color: #84B349;
+            }
+        }
+
+        @include component('data') {
+            margin-left: auto;
+        }
+
+        @include component('tag') {
+            background: #84B349;
+            color: color('greyscale', white);
+            padding: 0 0.3em;
+            height: 1.8em;
+            line-height: 1.7;
+            font-size: font-size('size-1');
+            border-radius: 0.15em;
+            font-family: typeface('secondary');
+            margin-left: auto;
+        }
+
+        @include component('items') {
+            display: flex;
+            margin-bottom: 0.5em;
+            @include component('label') {
+                margin-right: 0.5em;
+            }
+        }
+
+        @include component('bottom') {
+            margin-top: 1rem;
+        }
+        
+        @include component('sales') {
+            display: flex;
+        }
+
+        @include component('badges') {
+            width: 80%;
+        }
+
+        @include component('badge') {
+            width: 10%;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 3px;
+        }
+
+        @include component('logo') {
+            width: 25%;
+            margin-left: auto;
+            margin-top: auto;
+        }
+
         //*********************************************************
         // Custom Content
         //*********************************************************

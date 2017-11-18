@@ -15,24 +15,21 @@ export function envatoBadge(els = 'i8_envato', custom = {}) {
 
     app.Synergy(els, (el, options) => {
 
-        console.log(
-            el.component('avatar')[0],
-            document.getElementById('i8_envato_avatar')
-        );
-
         app.subscribe('ENVATO_USER_RESPONSE_SUCCESS', (message, response) => {
-            document.getElementById('i8_envato_avatar').setAttribute('src', response.user.image);
-            document.getElementById('i8_envato_sales').innerText = response.user.sales;
-            document.getElementById('i8_envato_user').innerText = response.user.username;
+            el.component('avatar')[0].setAttribute('src', response.user.image);
+
+            el.component('sales_value')[0].innerText = response.user.sales;
+
+            el.component('name')[0].innerText = response.user.username;
         });
     
         app.subscribe('ENVATO_ITEMS_RESPONSE_SUCCESS', (message, response) => {
-            document.getElementById('i8_envato_items').innerText = response.matches.length;
+            el.component('items_value')[0].innerText = response.matches.length;
         });
         
         app.subscribe('ENVATO_BADGES_RESPONSE_SUCCESS', (message, response) => {
             response['user-badges'].forEach(badge => {
-                document.getElementById('i8_envato_badges').insertAdjacentHTML('beforeend', `
+                el.component('badges')[0].insertAdjacentHTML('beforeend', `
                     <img class="i8_envato_badge" alt="${badge.label}" title="${badge.label}" src="${badge.image}" />
                 `);
             });
