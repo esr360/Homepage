@@ -17,9 +17,11 @@ export function header(els = 'header', custom = {}) {
 
         const stickyOffset = options.sticky.offset || el.offsetTop;
 
-        if (options.sticky.enabled || el.modifier('sticky')) {
-            window.addEventListener('load', stickyHeaderHandler);
-            window.addEventListener('scroll', stickyHeaderHandler);
+        if (app.media('min-width', 'break-2', app)) {
+            if (options.sticky.enabled || el.modifier('sticky')) {
+                window.addEventListener('load', stickyHeaderHandler);
+                window.addEventListener('scroll', stickyHeaderHandler);
+            }
         }
 
         function stickyHeaderHandler() {

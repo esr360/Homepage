@@ -17,10 +17,10 @@ export function envatoBadge(els = 'i8_envato', custom = {}) {
 
         app.subscribe('ENVATO_USER_RESPONSE_SUCCESS', (message, response) => {
             el.component('avatar')[0].setAttribute('src', response.user.image);
+            
+            el.component('name')[0].innerText = response.user.username;
 
             el.component('sales_value')[0].innerText = response.user.sales;
-
-            el.component('name')[0].innerText = response.user.username;
         });
     
         app.subscribe('ENVATO_ITEMS_RESPONSE_SUCCESS', (message, response) => {
