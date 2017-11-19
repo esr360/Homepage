@@ -32,6 +32,9 @@
                 repeat: no-repeat;
                 attachment: fixed;
             }
+            @media (max-width: breakpoint('break-1')) {
+                background: #000e2b;
+            }
         }
         
         @include component('foreground') {

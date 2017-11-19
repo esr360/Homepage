@@ -81,6 +81,10 @@
         @include components(('logo', 'social-links')) {
             display: table-cell;
             vertical-align: middle;
+            @media (max-width: breakpoint('break-1')) {
+                display: block;
+                text-align: center !important;
+            }
         }
 
         @include component('logo') {
@@ -92,6 +96,10 @@
                         
             @include component('surname') {
                 color: color('brand', 'brand-1');
+            }
+
+            @media (max-width: breakpoint('break-2')) {
+                font-size: 1.5em !important;
             }
         }
         
@@ -135,6 +143,14 @@
                         color: color('brand', 'brand-3');
                     }
                 }
+    
+                @media (max-width: breakpoint('break-2')) {
+                    font-size: 0.75em;
+                }
+            }
+
+            @media (max-width: breakpoint('break-1')) {
+                margin-top: 1em;
             }
         }
 
