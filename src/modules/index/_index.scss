@@ -149,6 +149,7 @@
                 text-transform: uppercase;
                 line-height: 1.2;
                 font-weight: 900;
+                margin-bottom: 2em;
             }
         }
         
@@ -245,6 +246,21 @@
             }
             a {
                 color: inherit;
+            }
+            @include component('skills') {
+                font-size: font-size('size-2');
+            }
+            @include component('list') {
+                background: rgba(black, 0.2);
+                padding: 1em;
+            }
+            @include component('cta') {
+                @include _module('button', ('border', 'white', 'size-1'));
+
+                &:hover {
+                    color: #F95879;
+                    background-color: color('greyscale', white);
+                }
             }
         }
 

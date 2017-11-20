@@ -42,6 +42,7 @@
 
             color: color('greyscale', white);
             margin-bottom: 0.5rem;
+            text-decoration: none;
         }
         
         @include component('star') {

@@ -39,11 +39,40 @@ header:
 
     <div class="container i8_ribbon_container">
         <div class="row-flow">
-            <div class="span-4 break-3-half break-2-full">
+            <div class="span-4 break-4-half break-2-full">
                 <div class="i8_bubble">
-                    <h3 class="heading-size-4 object-small">Responsive Web Design</h3>
-                    <p class="object-small">Amongst other things, I specialise in mobile and responsive web design - this website is built using my own custom responsive grid system.</p>
-                    <p class="object-small">Checkout <b><a target="blank" href="https://github.com/esr360/Kayzen-GS">Kayzen-GS</a></b> - a responsive grid system</p>
+                    <div class="row object-small">
+                        <div class="span-6 va-middle">
+                            <h3 class="heading-size-4">My Skills</h3>
+                        </div>
+                        <div class="span-6 va-middle text-right">
+                            <a class="i8_bubble_cta" href="https://www.linkedin.com/in/esr360/" target="blank">
+                                <i class="fa fa-linkedin"></i>&nbsp; Linked In
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row stack-break-0 i8_bubble_skills">
+                        <div class="i8_bubble_list span-6">
+                            <ul class="list-clear">
+                                <li>Mobile Design</li>
+                                <li>UI Design</li>
+                                <li>User Experience</li>
+                                <li>Accessibility</li>
+                            </ul>
+                        </div>
+                        <div class="i8_bubble_list span-6">
+                            <ul class="list-clear">
+                                <li>CSS/Sass</li>
+                                <li>JavaScript</li>
+                                <li>
+                                    <a href="https://rupl.github.io/frontend-ops/#/" target="blank">
+                                        Front-End Ops
+                                    </a>
+                                </li>
+                                <li>Performance</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <h3 class="i8_latest-article_head">Latest Blog Post</h3>
                 <div class="i8_latest-article">
@@ -58,10 +87,10 @@ header:
                     </div>
                     <h4 class="i8_latest-article_title heading-size-4">Using NPM Scripts to Run Node-Sass</h4>
                     <p class="i8_latest-article_blurb">Most web apps today will have some form of automated build tools to facilitate development. The job of build tools is to take your source code, perform some tasks on it, and generate your production code. Tasks which need to be automated may typically include Sass…</p>
-                    <a href="#TODO" class="button-brand-2">Read More</a>
+                    <a target="blank" href="https://medium.com/valtech-design/using-npm-scripts-to-run-node-sass-443b031b02a" class="button-brand-2">Read More</a>
                 </div>
             </div>
-            <div class="span-4 min-break-3">
+            <div class="span-4 min-break-4">
                 <div class="i8_iphone">
                     <img class="i8_iphone_browser" src="assets/images/iphone-browser.png" />
                     <a target="blank" href="http://onenexus.io" class="i8_iphone_screen">
@@ -70,11 +99,10 @@ header:
                     <img class="object-center i8_iphone_device" src="assets/images/mobile-base-blue.png" />
                 </div>
             </div>
-            <div class="span-4 break-3-half break-2-full">
+            <div class="span-4 break-4-half break-2-full">
                 <p class="i8_ribbon_title heading-size-10 min-break-4">Senior UI Consultant @Valtech</p>
                 <p class="i8_ribbon_title heading-size-8 max-break-4">Senior UI Consultant @Valtech</p>
                 <p class="i8_ribbon_subTitle">Australia & New Zealand</p>
-                <br />
                 <h3 class="heading-size-5"><i class="fa fa-github-alt"></i> Open-Source Projects:</h3>
                 <div class="i8_projects">
                     <a target="blank" href="https://github.com/esr360/Kayzen-GS" class="i8_projects_item">
@@ -114,7 +142,7 @@ header:
                 href="${shot.html_url}" 
                 class="i8_dribbble_shot span-3 break-3-third break-2-half break-1-full"
             >
-                <img src="${shot.images.normal}" />
+                ${shot.images.normal}
             </a>
         </div>
     </div>
@@ -151,19 +179,19 @@ header:
                 <h3 class="i8_follow_title">Follow me on social media</h3>
                 <p class="i8_follow_text">Keep up-to-date with all my latest blog posts and open-source projects by following me on social media:</p>
                 <div class="button_group">
-                    <a target="blank" href="#TODO" class="button-icon-size-5-twitter">
+                    <a target="blank" href="https://twitter.com/ESR360" class="button-icon-size-5-twitter">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a target="blank" href="#TODO" class="button-icon-size-5-github">
+                    <a target="blank" href="https://github.com/esr360" class="button-icon-size-5-github">
                         <i class="fa fa-github-alt"></i>
                     </a>
-                    <a target="blank" href="#TODO" class="button-icon-size-5-medium">
+                    <a target="blank" href="https://medium.com/@ESR360" class="button-icon-size-5-medium">
                         <i class="fa fa-medium"></i>
                     </a>
-                    <a target="blank" href="#TODO" class="button-icon-size-5-dribbble">
+                    <a target="blank" href="dribbble.com/esr360" class="button-icon-size-5-dribbble">
                         <i class="fa fa-dribbble"></i>
                     </a>
-                    <a target="blank" href="#TODO" class="button-icon-size-5-linkedin">
+                    <a target="blank" href="https://www.linkedin.com/in/esr360/" class="button-icon-size-5-linkedin">
                         <i class="fa fa-linkedin"></i>
                     </a>
                 </div>
@@ -183,16 +211,20 @@ header:
         <div class="container">
             <div class="row">
                 <div class="span-3 i8_footer_content">
-                    <p>This website is built using <a class="link" target="blank" href="#TODO">One-Nexus</a>; the source code is available on <a class="link" target="blank" href="#TODO">Github</a>.</p>
+                    <p>This website is built using <a class="link" target="blank" href="http://onenexus.io">One-Nexus</a>; the source code is available on <a class="link" target="blank" href="https://github.com/esr360/Homepage">Github</a>.</p>
 
-                    <p>I am available for remote custom UI design/development work - please <a class="link" target="blank" href="#TODO">get in touch</a> if you would like to talk.</p>
+                    <p>I am available for remote custom UI design/development work - please <a class="link" target="blank" href="https://twitter.com/ESR360">get in touch</a> if you would like to talk.</p>
                 </div>
                 <div class="span-4">
                     <div class="i8_envato">
                         <div class="i8_envato_top">
-                            <img class="i8_envato_avatar" src="#" />
+                            <a target="blank" href="https://themeforest.net/user/skyux">
+                                <img class="i8_envato_avatar" src="#" />
+                            </a>
                             <div class="i8_envato_user">
-                                <h3 class="i8_envato_name">ESR360</h3>
+                                <a target="blank" class="i8_envato_name" href="https://themeforest.net/user/skyux">
+                                    ESR360
+                                </a>
                                 <div class="i8_envato_rating">
                                     <i class="i8_envato_star-fill fa fa-star"></i>
                                     <i class="i8_envato_star-fill fa fa-star"></i>
@@ -214,9 +246,9 @@ header:
                         </div>
                         <div class="i8_envato_bottom">
                             <div class="i8_envato_badges"></div>
-                            <div class="i8_envato_logo">
+                            <a target="blank" class="i8_envato_logo" href="https://themeforest.net/user/skyux">
                                 <img src="assets/images/envato-logo.svg" />
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

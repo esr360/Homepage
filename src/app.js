@@ -164,6 +164,7 @@ $.ajax('https://api.envato.com/v1/discovery/search/search/item?username=SkyUX', 
     success: response => app.publish('ENVATO_ITEMS_RESPONSE_SUCCESS', response)
 });
 
+// Fetch Envato Info
 $.ajax('https://api.envato.com/v1/market/user-badges:SkyUX.json', {
     headers: { Authorization: 'Bearer ' + app.global['envato-token'] },
     success: response => app.publish('ENVATO_BADGES_RESPONSE_SUCCESS', response)

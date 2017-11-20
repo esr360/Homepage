@@ -63,7 +63,7 @@ export function socialDropdown(els = document.body, custom = {}) {
                 document.querySelector('#dribbble_shots').insertAdjacentHTML('beforeend', 
                         document.getElementById('i8_dribbble_shot_template').innerHTML
                             .replace('${shot.html_url}', shot.html_url)
-                            .replace('${shot.images.normal}', shot.images.normal)
+                            .replace('${shot.images.normal}', `<img src="${shot.images.normal}" />`)
                 );
             });
     

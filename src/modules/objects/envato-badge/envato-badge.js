@@ -30,8 +30,12 @@ export function envatoBadge(els = 'i8_envato', custom = {}) {
         app.subscribe('ENVATO_BADGES_RESPONSE_SUCCESS', (message, response) => {
             response['user-badges'].forEach(badge => {
                 el.component('badges')[0].insertAdjacentHTML('beforeend', `
-                    <img class="i8_envato_badge" alt="${badge.label}" title="${badge.label}" src="${badge.image}" />
+                    <div class="i8_envato_badge tooltip" data-tooltip="${badge.label}">
+                        <img alt="${badge.label}" title="${badge.label}" src="${badge.image}" />
+                    </div>
                 `);
+                // refresh tooltips
+                app.tooltips();
             });
         });
 
