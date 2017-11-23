@@ -20,8 +20,6 @@
         //*********************************************************
 
         @include component('background') {
-            position: fixed;
-            top: 0;
             height: 56vw;
             width: 100%;
             background: {     
@@ -30,8 +28,14 @@
                 position: center 5vw;
                 size: 100%;
                 repeat: no-repeat;
-                attachment: fixed;
             }
+
+            @media (min-width: breakpoint('break-3')) {
+                position: fixed;
+                background-attachment: fixed;
+                top: 0;
+            }
+    
             @media (max-width: breakpoint('break-1')) {
                 background: #000e2b;
             }
@@ -39,7 +43,6 @@
         
         @include component('foreground') {
             position: relative;
-            top: 10%;
             height: 100%;
             width: 100%;
             background: {     
@@ -47,8 +50,13 @@
                 position: center 30vw;
                 size: 100%;
                 repeat: no-repeat;
-                attachment: fixed;
             }
+
+            @media (min-width: breakpoint('break-3')) {
+                background-attachment: fixed;
+                top: 10%;
+            }
+
             &:after {
                 content: '';
                 position: absolute;
@@ -66,11 +74,16 @@
             background-image: url('#{$asset-path}/images/neon-city.png');
             background-repeat: no-repeat;
             background-size: 100%;
-            margin-top: 65vw;
             color: color('greyscale', white);
+
+            @media (min-width: breakpoint('break-3')) {
+                margin-top: 65vw;
+            }
+
             @media (min-width: breakpoint('break-4')) {
                 margin-top: 85vw;
             }
+
             &:before {
                 content: '';
                 background: white;
@@ -255,10 +268,12 @@
                 padding: 1em;
             }
             @include component('cta') {
-                @include _module('button', ('border', 'white', 'size-1'));
+                @include _module('button', ('border', 'size-1'));
+                color: color('greyscale', white);
 
                 &:hover {
                     color: #F95879;
+                    border-color: color('greyscale', white);
                     background-color: color('greyscale', white);
                 }
             }
@@ -420,6 +435,7 @@
             color: color('greyscale', white);
             position: relative;
             font-size: font-size('size-4');
+            overflow: hidden;
             @include component('title') {
                 max-width: 400px;
             }
@@ -441,10 +457,13 @@
                 animation: clouds 25s linear infinite alternate;
             }
             @include component('cta') {
-                @include _module('button', ('border', 'white'));
+                @include _module('button', ('border'));
+                color: color('greyscale', white);
+
                 &:hover {
                     background: color('greyscale', white);
-                    color: #1487C6;
+                    color: #36B7DE;
+                    border-color: color('greyscale', white);
                 }
             }
             .spacer {
@@ -460,6 +479,7 @@
             background: color('greyscale', 'grey-1');
             padding: 8em 0;
             overflow: hidden;
+            position: relative;
 
             @include component('title') {
                 @include _module('heading', ('size-10', 'heavy', 'uppercase'));
@@ -520,6 +540,8 @@
 
         @include component('footer') {
             position: relative;
+            background: color(greyscale, grey-6);
+
             &:before {
                 content: '';
                 height: 6px;

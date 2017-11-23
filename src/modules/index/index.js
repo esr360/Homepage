@@ -19,15 +19,15 @@ export function index(els = 'i8', custom = {}) {
         $(window).on('scroll', function() {
             var scrollTop = $(this).scrollTop();
 
-            $('.i8_background').css({
-                transform: 'translateY(' + scrollTop/-4 + 'px)'
-            });
-
-            $('.i8_foreground').css({
-                transform: 'translateY(' + scrollTop/-6 + 'px)'
-            });
-
             if (app.media('min-width', 'break-4', app)) {
+                $('.i8_background').css({
+                    transform: 'translateY(' + scrollTop/-4 + 'px)'
+                });
+    
+                $('.i8_foreground').css({
+                    transform: 'translateY(' + scrollTop/-6 + 'px)'
+                });
+
                 if (app.inViewport({target: document.querySelector('.i8_intro')})) {
                     $('.i8_intro').css({
                         'background-position-y': (0.2 * scrollTop) - 200 + 'px'

@@ -17,6 +17,9 @@ export function preloader(els = 'preloader', custom = {}) {
 
         window.addEventListener('load', () => exports.hide());
 
+        // hide if more than x time passes
+        setTimeout(() => exports.hide(), 5000);
+        
         app.Synergy(options.name).component('close').forEach(trigger => {
             trigger.addEventListener('click', () => exports.hide());
         });
