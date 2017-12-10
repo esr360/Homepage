@@ -80,7 +80,7 @@ export function socialDropdown(els = document.body, custom = {}) {
             
             data.forEach(repo => {
                 if (repo.owner.login === 'esr360') {
-                    if (Date.parse(repo.updated_at) > NEW_RANGE) {
+                    if (Date.parse(repo.updated_at) > NEW_RANGE || Date.parse(repo.pushed_at) > NEW_RANGE) {
                         updates++;
     
                         if (updates === 1) {
@@ -90,7 +90,11 @@ export function socialDropdown(els = document.body, custom = {}) {
                             `);
                         }
 
-                        let [tag, tagClass] = ['New Commits', 'new-commits'];
+                        let [tag, tagClass] = ['New Updates', 'new-updates'];
+
+                        if (Date.parse(repo.pushed_at) > Date.parse(repo.updated_at)) {
+                            [tag, tagClass] = ['New Commits', 'new-commits'];
+                        }
 
                         if (Date.parse(repo.created_at) > NEW_RANGE) {
                             [tag, tagClass] = ['New Repo', 'new-repo'];

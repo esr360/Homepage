@@ -19,8 +19,16 @@
         // Core Styles
         //*********************************************************
 
+        @include component('billboard') {
+            position: relative;
+            height: 61vw;
+            width: 100%;
+        }
+
         @include component('background') {
-            height: 56vw;
+            position: absolute;
+            top: 0;
+            height: 100%;
             width: 100%;
             background: {     
                 image: url('#{$asset-path}/images/i8-bg.png');
@@ -29,32 +37,17 @@
                 size: 100%;
                 repeat: no-repeat;
             }
-
-            @media (min-width: breakpoint('break-3')) {
-                position: fixed;
-                background-attachment: fixed;
-                top: 0;
-            }
-    
-            @media (max-width: breakpoint('break-1')) {
-                background: #000e2b;
-            }
         }
-        
+
         @include component('foreground') {
             position: relative;
             height: 100%;
             width: 100%;
             background: {     
                 image: url('#{$asset-path}/images/i8-foreground.png');
-                position: center 30vw;
+                position: center 29.5vw;
                 size: 100%;
                 repeat: no-repeat;
-            }
-
-            @media (min-width: breakpoint('break-3')) {
-                background-attachment: fixed;
-                top: 10%;
             }
 
             &:after {
@@ -71,20 +64,10 @@
         @include component('intro') {
             position: relative;
             padding-bottom: 25%;
-            background-image: url('#{$asset-path}/images/neon-city.png');
-            background-repeat: no-repeat;
-            background-size: 100%;
-            color: color('greyscale', white);
+            color: color(greyscale, white);
+            margin-top: 10vw;
 
-            @media (min-width: breakpoint('break-3')) {
-                margin-top: 65vw;
-            }
-
-            @media (min-width: breakpoint('break-4')) {
-                margin-top: 85vw;
-            }
-
-            &:before {
+            &:after {
                 content: '';
                 background: white;
                 width: 100%;
@@ -94,6 +77,7 @@
                 transform-origin: 0 100%;
                 transform: skewY(-14deg);
             }
+
             a {
                 color: #fe3e64;
                 text-decoration: none;
@@ -103,6 +87,18 @@
                     border-bottom: 1px dotted;
                 }
             }
+
+            @include component('background') {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                background-image: url('#{$asset-path}/images/neon-city.png');
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+
             @include component('heading') {
                 line-height: 1.3;
                 letter-spacing: 2px;
@@ -115,6 +111,7 @@
                     text-shadow:  -3px -3px 0px #0dffff, 2px 3px 0px #fe3e64;
                 }
             }
+
             @include component('content') {
                 font-family: 'cybrpnuk2';
                 font-size: font-size('size-4');
@@ -122,8 +119,9 @@
                 margin-bottom: 3em;
                 text-shadow: 4px 4px 4px rgba(black, 0.65);
             }
+
             @include component('source') {
-                color: color('greyscale', 'grey-4');
+                color: color(greyscale, grey-4);
             }
         }
 
@@ -148,6 +146,7 @@
                 position: absolute;
                 left: -1%;
                 width: 102%;
+                bottom: -5%;
             }
             @include component('title') {
                 color: color('greyscale', white);
@@ -165,9 +164,10 @@
                 margin-bottom: 2em;
             }
         }
-        
+
         @include component('macbook') {
             position: relative;
+            z-index: 1;
             &:after {
                 content: '';
                 background: url('#{$asset-path}/images/cursor.png');
@@ -198,7 +198,7 @@
                 top: 4.2%;
             }
         }
-                
+       
         @include component('iphone') {
             position: relative;
             @include component('device') {

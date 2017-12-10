@@ -17,17 +17,20 @@ export const config = {};
 // Vendor
 //*****************************************************************
 
-import Synergy from 'Synergy';
 import deepextend from 'deep-extend';
+import Browser from 'detect-browser';
 import Flickity from 'flickity';
+import $ from 'jquery';
 import PubSub from 'pubsub-js';
+import Synergy from 'Synergy';
 import Tilt from 'tilt.js';
 
 export { 
-    Synergy, 
-    deepextend, 
+    deepextend,
+    Browser,
     Flickity, 
-    PubSub, 
+    PubSub,
+    Synergy, 
     Tilt 
 };
 
@@ -99,7 +102,7 @@ import { parse } from './tools/js/app.parse';
 import { smoothScroll } from './tools/js/app.smoothScroll';
 import { scrollSpy } from './tools/js/app.scrollSpy';
 
-export { 
+export {
     custom, 
     evalConfig, 
     hrefTarget, 
@@ -117,6 +120,8 @@ export {
 app.publish   = PubSub.publish;
 app.subscribe = PubSub.subscribe;
 
+window.$      = $;
+window.jQuery = $;
 window.APPUI  = window.APPUI || app;
 
 // Global Methods

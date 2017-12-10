@@ -73,6 +73,9 @@
             @include modifier('new-repo') {
                 background: color('alert', 'error');
             }
+            @include modifier('new-updates') {
+                background: color('alert', 'success');
+            }
             @include modifier('new-shot') {
                 background: color('social', 'dribbble');
             }
