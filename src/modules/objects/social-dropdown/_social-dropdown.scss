@@ -30,6 +30,7 @@
         padding: 0.6em;
         max-height: 75vh;
         overflow-y: scroll;
+        font-size: font-size(size-2, true);
 
         @include component('wrap') {
             position: relative;

@@ -36,8 +36,10 @@
                     @font-face {
                         font-family: $family;
                         src: 
-                            url('#{$asset-path}/fonts/#{$family}/#{$family}.woff2') format('woff2'),
-                            url('#{$asset-path}/fonts/#{$family}/#{$family}.woff') format('woff');
+                            //@TODO look at why woff format for 'cyberpnuk2' font breaks
+                            //url('#{$asset-path}/fonts/#{$family}/#{$family}.woff2') format('woff2'),
+                            //url('#{$asset-path}/fonts/#{$family}/#{$family}.woff') format('woff'),
+                            url('#{$asset-path}/fonts/#{$family}/#{$family}.ttf') format('truetype');
                     }   
                 }
 
