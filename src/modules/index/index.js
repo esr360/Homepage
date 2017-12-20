@@ -76,7 +76,7 @@ export function index(els = 'i8', custom = {}) {
                             
             if (app.inViewport({target: document.querySelector('.i8_ribbon')})) {
                 $('.i8_ribbon_foreground').css({
-                    bottom: '14vw',
+                    bottom: '23%',
                     transform: 'translateY(' + scrollTop/10 + 'px)'
                 });
             }
