@@ -28,10 +28,10 @@ import Tilt from 'tilt.js';
 export { 
     deepextend,
     Browser,
-    Flickity, 
+    Flickity,
     PubSub,
-    Synergy, 
-    Tilt 
+    Synergy,
+    Tilt
 };
 
 // Modules
@@ -66,25 +66,25 @@ import { typography } from './modules/utilities/typography/typography';
 import { index } from './modules/index/index';
 
 export { 
-    envatoBadge, 
-    accordion, 
-    carousel, 
-    modal, 
-    progressBar, 
-    tabs, 
-    tooltips, 
-    googleMap, 
-    header, 
-    overlay, 
-    preloader, 
-    scrollTop, 
-    search, 
-    sideNav, 
-    socialDropdown, 
-    colors, 
-    core, 
-    grid, 
-    typography, 
+    envatoBadge,
+    accordion,
+    carousel,
+    modal,
+    progressBar,
+    tabs,
+    tooltips,
+    googleMap,
+    header,
+    overlay,
+    preloader,
+    scrollTop,
+    search,
+    sideNav,
+    socialDropdown,
+    colors,
+    core,
+    grid,
+    typography,
     index
 };
 
@@ -103,15 +103,15 @@ import { smoothScroll } from './tools/js/app.smoothScroll';
 import { scrollSpy } from './tools/js/app.scrollSpy';
 
 export {
-    custom, 
-    evalConfig, 
-    hrefTarget, 
-    inViewport, 
-    isValidSelector, 
-    media, 
-    parents, 
-    parse, 
-    smoothScroll, 
+    custom,
+    evalConfig,
+    hrefTarget,
+    inViewport,
+    isValidSelector,
+    media,
+    parents,
+    parse,
+    smoothScroll,
     scrollSpy
 };
 
