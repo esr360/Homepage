@@ -44,7 +44,7 @@
     "grunt-postcss": "^0.6.0",
     "grunt-sassdoc": "^2.0.2",
     "grunt-scss-lint": "^0.3.8",
-    "jsdom": "^11.0.0",
+    "jsdom": "^16.5.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^3.4.2",
     "nopt-grunt-fix": "^1.0.0",
